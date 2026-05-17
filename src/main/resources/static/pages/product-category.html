@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TECH-STORE - Danh mục sản phẩm</title>
+    <title>TECH-STORE</title>
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -101,65 +101,47 @@
         }
     </script>
 </head>
-
+<script type="module" src="/js/pages/product-category.js"></script>
 <body class="bg-surface text-on-surface font-body-md">
 
+<!-- Header sẽ được load vào đây -->
 <div id="header"></div>
 
-<main class="max-w-[1280px] mx-auto px-6 py-6">
-    <div class="mb-6">
-        <h1 id="category-title" class="font-h2 text-h2 text-on-surface">
+<main class="max-w-[1280px] mx-auto px-6 py-8 mt-20">
+
+    <!-- Tiêu đề danh mục -->
+    <section class="mb-8">
+        <h1 id="category-title" class="text-3xl font-bold text-on-surface">
             Danh mục sản phẩm
         </h1>
-    </div>
 
-    <div class="flex flex-col lg:flex-row gap-8">
+        <p id="category-description" class="text-sm text-secondary mt-2">
+            Tìm kiếm sản phẩm phù hợp với nhu cầu của bạn
+        </p>
+    </section>
 
-        <aside class="w-full lg:w-64 flex-shrink-0">
-            <div id="filter-sidebar" class="space-y-8 sticky top-24"></div>
-        </aside>
+    <div class="flex flex-col gap-6">
 
-        <section class="flex-1">
-            <div class="flex flex-wrap items-center justify-between gap-4 mb-8 bg-white p-4 rounded-xl border border-gray-100">
-                <div class="flex items-center gap-4">
-                    <span class="text-sm font-semibold text-gray-900">Sắp xếp theo:</span>
+        <!-- Bộ lọc -->
+        <div id="filter-bar"></div>
 
-                    <div class="flex gap-2">
-                        <button data-sort="best_seller"
-                                class="sort-btn bg-primary-container text-white px-4 py-1.5 rounded-full text-xs font-medium">
-                            Bán chạy nhất
-                        </button>
+        <!-- Sắp xếp -->
+        <div id="sort-bar"></div>
 
-                        <button data-sort="price_asc"
-                                class="sort-btn bg-gray-100 text-gray-600 px-4 py-1.5 rounded-full text-xs font-medium hover:bg-gray-200">
-                            Giá thấp đến cao
-                        </button>
+        <!-- Sau này render product-card vào đây -->
+        <div id="product-list"
+             class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        </div>
 
-                        <button data-sort="price_desc"
-                                class="sort-btn bg-gray-100 text-gray-600 px-4 py-1.5 rounded-full text-xs font-medium hover:bg-gray-200">
-                            Giá cao đến thấp
-                        </button>
-
-                        <button data-sort="newest"
-                                class="sort-btn bg-gray-100 text-gray-600 px-4 py-1.5 rounded-full text-xs font-medium hover:bg-gray-200">
-                            Mới nhất
-                        </button>
-                    </div>
-                </div>
-
-                <p id="product-count" class="text-sm text-gray-500 font-medium"></p>
-            </div>
-
-            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"></div>
-
-            <div id="pagination" class="mt-12 flex items-center justify-center gap-2"></div>
-        </section>
+        <!-- Sau này render phân trang -->
+        <div id="pagination"></div>
 
     </div>
+
 </main>
 
+<!-- Footer sẽ được load vào đây -->
 <div id="footer"></div>
-<script type="module" src="/pages/products-page.js"></script>
-<script type="module" src="/pages/products-page.js"></script>
+<script type="module" src="/js/pages/product-category.js"></script>
 </body>
 </html>

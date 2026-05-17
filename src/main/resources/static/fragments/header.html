@@ -8,11 +8,35 @@
             </div>
         </div>
         <nav class="hidden md:flex items-center gap-6 font-sans text-sm font-medium tracking-tight">
-            <a class="text-red-600 border-b-2 border-red-600 pb-1" href="/">Trang chủ</a>
-            <a class="text-gray-700 dark:text-gray-300 hover:text-red-600 transition-all duration-200" href="/pages/products.html?categoryId=1">Điện thoai</a>
-            <a class="text-gray-700 dark:text-gray-300 hover:text-red-600 transition-all duration-200" href="/pages/products.html?categoryId=2">Laptop</a>
-            <a class="text-gray-700 dark:text-gray-300 hover:text-red-600 transition-all duration-200" href="/pages/products.html?categoryId=3">Tablet</a>
-            <a class="text-gray-700 dark:text-gray-300 hover:text-red-600 transition-all duration-200" href="/pages/products.html?categoryGroup=accessory">Phụ kiện</a>
+            <a class="nav-link text-gray-700 dark:text-gray-300 hover:text-red-600 transition-all duration-200"
+               data-page="home"
+               href="/">
+                Trang chủ
+            </a>
+
+            <a class="nav-link text-gray-700 dark:text-gray-300 hover:text-red-600 transition-all duration-200"
+               data-page="phone"
+               href="/category?type=phone">
+                Điện thoại
+            </a>
+
+            <a class="nav-link text-gray-700 dark:text-gray-300 hover:text-red-600 transition-all duration-200"
+               data-page="laptop"
+               href="/category?type=laptop">
+                Laptop
+            </a>
+
+            <a class="nav-link text-gray-700 dark:text-gray-300 hover:text-red-600 transition-all duration-200"
+               data-page="tablet"
+               href="/category?type=tablet">
+                Tablet
+            </a>
+
+            <a class="nav-link text-gray-700 dark:text-gray-300 hover:text-red-600 transition-all duration-200"
+               data-page="accessory"
+               href="/category?type=accessory">
+                Phụ kiện
+            </a>
         </nav>
         <div class="flex items-center gap-4">
             <button class="p-2 hover:bg-gray-50 dark:hover:bg-gray-900 rounded-full transition-all duration-200">
