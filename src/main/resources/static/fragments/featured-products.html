@@ -1,0 +1,80 @@
+<!-- Section 1: Sản phẩm nổi bật -->
+<section th:fragment="featured-products" class="mt-section-gap">
+    <div class="flex items-center justify-between mb-8">
+        <h2 class="font-h2 text-h2 text-on-surface">Sản phẩm nổi bật</h2>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+        <!-- Featured Card 1 -->
+        <div class="bg-white border border-gray-300 rounded-xl p-card-padding group ambient-lift transition-all cursor-pointer">
+            <div class="relative mb-4">
+                <span class="absolute top-0 left-0 bg-primary-container text-white text-[10px] font-bold px-2 py-1 rounded-full">HOT</span>
+                <img class="w-full aspect-square object-contain group-hover:scale-105 transition-transform" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8x8La9Oum53WB2HPDPbYa5onfcAuE90ZtE18gqIDw5pCrEsDAfl2VPfm_b0Rx17f1W9LAxMWfvswoR0hjMZ2QSPJ1d9KORzN_MLtSit4Z811hZ21zQLlFkBQHoV_cwlhDmqV_POXZ64SceTnndsnYQVlmjzVWA8Uu6uXEvFzXRIM_GDOUMyOMkqFUBXSN5l4z9NRhAf1jCli4WJODDOek9xXOV3jtDtZDK_mppIg7ics_m0Vt_IvV-bVYM4634FZxI80SuIEknEgp"/>
+            </div>
+            <div class="space-y-2"><h3 class="font-h3 text-sm text-on-surface line-clamp-2">Samsung Galaxy S24 Ultra</h3>
+                <div class="flex flex-col">
+                    <p class="text-primary-container font-bold text-lg">26.490.000đ</p>
+                </div>
+            </div>
+            <div class="flex gap-2 pt-2">
+                <button class="flex-1 bg-primary-container hover:bg-primary text-white text-sm font-bold py-2 rounded-lg transition-all duration-200">Mua ngay</button>
+                <button class="w-11 flex items-center justify-center border border-gray-300 hover:border-primary-container hover:text-primary-container rounded-lg transition-all duration-200">
+                    <span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+                </button>
+            </div>
+        </div>
+        <!-- Featured Card 2 -->
+        <div class="bg-white border border-gray-300 rounded-xl p-card-padding group ambient-lift transition-all cursor-pointer">
+            <div class="relative mb-4">
+                <img class="w-full aspect-square object-contain group-hover:scale-105 transition-transform" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzkl2oK0RgOJ6QaZfFQQ1v79VQGAhSTWVoPTlHycsDJrbi4yXAHvHry7JLpFDCJpzXsbcYk5lT16MR0ni3N--cokOT7ypXyTYG-KmE7uD7zBsP7E_XZLRYspCkeltQL4auyCj3drgIt-y9QTIzXwxQaZEtITu74g7pLKN51QCHMAn8XyQl-AT3dbKt9PymblbWstTemaSIFuuMzo-BFW17t_MiXM1tRmUsANRFo_BnYc5R5m_wm2uGvbikbEBXuCg9rRAiiFkJ6-fm"/>
+            </div>
+            <div class="space-y-2"><h3 class="font-h3 text-sm text-on-surface line-clamp-2">MacBook Air M3 13 inch</h3>
+                <div class="flex flex-col">
+                    <p class="text-primary-container font-bold text-lg">27.990.000đ</p>
+                </div>
+            </div>
+            <div class="flex gap-2 pt-2">
+                <button class="flex-1 bg-primary-container hover:bg-primary text-white text-sm font-bold py-2 rounded-lg transition-all duration-200">Mua ngay</button>
+                <button class="w-11 flex items-center justify-center border border-gray-300 hover:border-primary-container hover:text-primary-container rounded-lg transition-all duration-200">
+                    <span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+                </button>
+            </div>
+        </div>
+
+
+        <!-- Add 2 more similar cards -->
+        <div class="bg-white border border-gray-100 rounded-xl p-card-padding group ambient-lift transition-all cursor-pointer">
+            <div class="relative mb-4">
+                <span class="absolute top-0 left-0 bg-primary-container text-white text-[10px] font-bold px-2 py-1 rounded-full">HOT</span>
+                <img class="w-full aspect-square object-contain group-hover:scale-105 transition-transform" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7OqnTH1xGeXg8Ii3FCyV_YyIXz6-wMigDJgx8ZEeStDQSrGW9s7ffOKpsZYPkrt55P91vcmKcYDwPC1PBe8X9azChetAn0ABR7qG7QopPxKbRSrHiB9Q6G4-mlZn1rM1_i1NtrmozYdi9EmIDTeDLogWIfPlBwHGKDkM-4H_-4tz8KK_Dtnk4TttBubbWZfgIumOjTKuwa5IedClciGg0cl5wfbsy6Ql0gA7NauF1DFsPaiRRA0utrqZ-o-pyyJ7cG0Sp-00IdBi5"/>
+            </div>
+            <div class="space-y-2"><h3 class="font-h3 text-sm text-on-surface line-clamp-2">Sony Alpha ZV-E10</h3>
+                <div class="flex flex-col">
+                    <p class="text-primary-container font-bold text-lg">18.490.000đ</p>
+                </div>
+            </div>
+            <div class="flex gap-2 pt-2">
+                <button class="flex-1 bg-primary-container hover:bg-primary text-white text-sm font-bold py-2 rounded-lg transition-all duration-200">Mua ngay</button>
+                <button class="w-11 flex items-center justify-center border border-gray-300 hover:border-primary-container hover:text-primary-container rounded-lg transition-all duration-200">
+                    <span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+                </button>
+            </div>
+        </div>
+        <div class="bg-white border border-gray-100 rounded-xl p-card-padding group ambient-lift transition-all cursor-pointer">
+            <div class="relative mb-4">
+                <span class="absolute top-0 left-0 bg-primary-container text-white text-[10px] font-bold px-2 py-1 rounded-full">GIÁ TỐT</span>
+                <img class="w-full aspect-square object-contain group-hover:scale-105 transition-transform" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEWlitXCAYCTMpF9u1buCvLJ_aJeQo6hgW6z6OWsCSotH4OHvKmStWA4li0Qatrg_2HEnTeOIzG4xUKDHpwAd0Q-cGYd6LHp-rY0Wv-P2ruTxZCs5Omb24BFE8GBWsVAUyODZmwjj66gP_2_l308H4gbmCFVKgkV5SAQHGJVRHj3CechXRThU5mc8sHpZ0RzJnws4xLXSxRfwNjKz3_Yj3DgPh3UAMrNSykhxQRY7NVm5jOIOf9m6fdp-7cSeEPe6LriaZEAU3waZ7"/>
+            </div>
+            <div class="space-y-2"><h3 class="font-h3 text-sm text-on-surface line-clamp-2">Samsung Galaxy Tab S9 FE</h3>
+                <div class="flex flex-col">
+                    <p class="text-primary-container font-bold text-lg">8.990.000đ</p>
+                </div>
+            </div>
+            <div class="flex gap-2 pt-2">
+                <button class="flex-1 bg-primary-container hover:bg-primary text-white text-sm font-bold py-2 rounded-lg transition-all duration-200">Mua ngay</button>
+                <button class="w-11 flex items-center justify-center border border-gray-300 hover:border-primary-container hover:text-primary-container rounded-lg transition-all duration-200">
+                    <span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>

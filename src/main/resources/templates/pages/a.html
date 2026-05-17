@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f6faff",
+                        "surface-dim": "#d2dbe4",
+                        "on-surface": "#141d23",
+                        "primary-container": "#be1e2d",
+                        "on-background": "#141d23",
+                        "surface-bright": "#f6faff",
+                        "on-primary-container": "#ffd3d1",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#8f6f6e",
+                        "inverse-primary": "#ffb3b0",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#e2e2e2",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#ffb3b0",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#1b1b1b",
+                        "secondary": "#5e5e5e",
+                        "secondary-container": "#e2e2e2",
+                        "on-tertiary-container": "#dcdedf",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#474747",
+                        "inverse-on-surface": "#e9f2fb",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#191c1d",
+                        "surface-container-highest": "#dbe4ed",
+                        "surface-variant": "#dbe4ed",
+                        "background": "#f6faff",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#484a4b",
+                        "tertiary-fixed-dim": "#c5c7c8",
+                        "surface-tint": "#b91a2a",
+                        "outline-variant": "#e3bebb",
+                        "surface-container-high": "#e0e9f2",
+                        "tertiary-container": "#5f6263",
+                        "inverse-surface": "#293138",
+                        "on-primary-fixed": "#410006",
+                        "on-primary-fixed-variant": "#930019",
+                        "tertiary-fixed": "#e1e3e4",
+                        "on-tertiary-fixed-variant": "#454748",
+                        "surface-container-low": "#ecf5fe",
+                        "on-surface-variant": "#5b403f",
+                        "secondary-fixed-dim": "#c6c6c6",
+                        "surface-container": "#e6eff8",
+                        "on-secondary-container": "#646464",
+                        "primary": "#98001b",
+                        "primary-fixed": "#ffdad8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "64px",
+                        "card-padding": "16px",
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "spec-label": ["Inter"],
+                        "spec-value": ["Inter"],
+                        "h3": ["Inter"],
+                        "h1": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "h2": ["Inter"],
+                        "caption": ["Inter"]
+                    },
+                    "fontSize": {
+                        "spec-label": ["14px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "spec-value": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h2": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "caption": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface">
+<header class="sticky top-0 w-full z-50 bg-white dark:bg-gray-950 border-b border-gray-100 dark:border-gray-800 shadow-sm">
+    <div class="flex items-center justify-between max-w-[1280px] mx-auto px-6 py-3">
+        <div class="flex items-center gap-8">
+            <a class="text-2xl font-black text-red-600 dark:text-red-500 italic" href="#">TECH-STORE</a>
+            <div class="relative hidden lg:block w-72">
+                <input class="w-full pl-10 pr-4 py-2 bg-gray-50 border-none rounded-lg focus:ring-2 focus:ring-primary-container text-sm" placeholder="Tìm kiếm sản phẩm..." type="text"/>
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+            </div>
+        </div>
+        <nav class="hidden md:flex items-center gap-6 font-sans text-sm font-medium tracking-tight">
+            <a class="text-red-600 border-b-2 border-red-600 pb-1" href="#">Trang chủ</a>
+            <a class="text-gray-700 dark:text-gray-300 hover:text-red-600 transition-all duration-200" href="#">Điện thoai</a>
+            <a class="text-gray-700 dark:text-gray-300 hover:text-red-600 transition-all duration-200" href="#">Laptop</a>
+            <a class="text-gray-700 dark:text-gray-300 hover:text-red-600 transition-all duration-200" href="#">Tablet</a>
+            <a class="text-gray-700 dark:text-gray-300 hover:text-red-600 transition-all duration-200" href="#">Phụ kiện</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <button class="p-2 hover:bg-gray-50 dark:hover:bg-gray-900 rounded-full transition-all duration-200">
+                <span class="material-symbols-outlined text-gray-700 dark:text-gray-300">favorite</span>
+            </button>
+            <button class="p-2 hover:bg-gray-50 dark:hover:bg-gray-900 rounded-full transition-all duration-200 relative">
+                <span class="material-symbols-outlined text-gray-700 dark:text-gray-300">shopping_cart</span>
+                <span class="absolute top-1 right-1 bg-primary-container text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">3</span>
+            </button>
+            <button class="p-2 hover:bg-gray-50 dark:hover:bg-gray-900 rounded-full transition-all duration-200">
+                <span class="material-symbols-outlined text-gray-700 dark:text-gray-300">account_circle</span>
+            </button>
+        </div>
+    </div>
+</header>
+<main class="max-w-[1280px] mx-auto px-6 py-6">
+    <div class="flex flex-col lg:flex-row gap-8">
+        <aside class="w-full lg:w-64 flex-shrink-0">
+            <div class="space-y-8 sticky top-24">
+                <div>
+                    <h3 class="font-h3 text-spec-label uppercase tracking-wider text-gray-900 mb-4 flex items-center justify-between">
+                        Hãng sản xuất
+                        <span class="material-symbols-outlined text-sm">keyboard_arrow_up</span>
+                    </h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input class="rounded border-gray-300 text-red-600 focus:ring-red-500" type="checkbox"/>
+                            <span class="text-sm text-gray-700 group-hover:text-red-600 transition-colors">Apple (32)</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input checked="" class="rounded border-gray-300 text-red-600 focus:ring-red-500" type="checkbox"/>
+                            <span class="text-sm text-red-600 font-semibold">Samsung (28)</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input class="rounded border-gray-300 text-red-600 focus:ring-red-500" type="checkbox"/>
+                            <span class="text-sm text-gray-700 group-hover:text-red-600 transition-colors">Xiaomi (45)</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input class="rounded border-gray-300 text-red-600 focus:ring-red-500" type="checkbox"/>
+                            <span class="text-sm text-gray-700 group-hover:text-red-600 transition-colors">Oppo (19)</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="border-t border-gray-200 pt-6">
+                    <h3 class="font-h3 text-spec-label uppercase tracking-wider text-gray-900 mb-4">Mức giá</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input class="border-gray-300 text-red-600 focus:ring-red-500" name="price" type="radio"/>
+                            <span class="text-sm text-gray-700 group-hover:text-red-600 transition-colors">Dưới 5 triệu</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input class="border-gray-300 text-red-600 focus:ring-red-500" name="price" type="radio"/>
+                            <span class="text-sm text-gray-700 group-hover:text-red-600 transition-colors">5 - 10 triệu</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input class="border-gray-300 text-red-600 focus:ring-red-500" name="price" type="radio"/>
+                            <span class="text-sm text-gray-700 group-hover:text-red-600 transition-colors">10 - 20 triệu</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input class="border-gray-300 text-red-600 focus:ring-red-500" name="price" type="radio"/>
+                            <span class="text-sm text-gray-700 group-hover:text-red-600 transition-colors">Trên 20 triệu</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <div class="flex-1">
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-8 bg-white p-4 rounded-xl border border-gray-100">
+                <div class="flex items-center gap-4">
+                    <span class="text-sm font-semibold text-gray-900">Sắp xếp theo:</span>
+                    <div class="flex gap-2">
+                        <button class="bg-primary-container text-white px-4 py-1.5 rounded-full text-xs font-medium">Bán chạy nhất</button>
+                        <button class="bg-gray-100 text-gray-600 px-4 py-1.5 rounded-full text-xs font-medium hover:bg-gray-200 transition-colors">Giá thấp đến cao</button>
+                        <button class="bg-gray-100 text-gray-600 px-4 py-1.5 rounded-full text-xs font-medium hover:bg-gray-200 transition-colors">Mới nhất</button>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-500 font-medium">Hiển thị <span class="text-gray-900">12</span> trên <span class="text-gray-900">156</span> sản phẩm</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl border border-gray-100 overflow-hidden group hover:shadow-[0px_10px_25px_rgba(0,0,0,0.08)] transition-all duration-300">
+                    <div class="relative p-6 aspect-square bg-white flex items-center justify-center overflow-hidden">
+                        <span class="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded-sm uppercase z-10">Giảm 15%</span>
+                        <img alt="iPhone 15 Pro" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="A high-resolution product shot of a Titanium iPhone 15 Pro, presented against a clean, minimalist white studio background. The lighting is soft and even, highlighting the brushed metal texture and advanced lens array. The composition is centered and balanced, emphasizing professional retail quality and technological precision. The overall aesthetic is bright, high-contrast, and luxurious, using white and neutral tones with subtle shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZ0dVKF0S534h34NRqsdN4fI44RaoMiQyhEgx9CkG-TYj7E821OKGavkIVgo5CnthgaSHdFUMsqIL7tBbRiMJcImRVE2C-1xJbgthwtVwMSO82sd4AOAiDsIQdQvxHlcwdVHoBSzVjcRo6gnfQ8iQGp2NAgjJkJ4GMmI0LEXd3Rku5prvVeThKMMgsSAZ--gDeq-ZPS5B_RBeJKgpCjav8jmj04a8NeEELz00T6IdA0uuxmzFFc9dEAcCcfPvnLTc0xoHjOc42w7EW"/>
+                        <div class="absolute inset-x-0 bottom-0 p-4 bg-white/80 backdrop-blur-sm transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex gap-2">
+                            <button class="flex-1 bg-black text-white text-xs font-bold py-2 rounded uppercase tracking-tight hover:opacity-90">Thêm vào giỏ</button>
+                            <button class="p-2 border border-black rounded hover:bg-black hover:text-white transition-colors">
+                                <span class="material-symbols-outlined text-sm">compare_arrows</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-xs text-gray-400 font-medium mb-1 uppercase tracking-tighter">Apple</p>
+                        <h3 class="font-h3 text-base text-gray-900 mb-2 truncate">iPhone 15 Pro Max 256GB - Chính hãng VN/A</h3>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-lg font-bold text-red-600">29.490.000đ</span>
+                            <span class="text-sm text-gray-400 line-through">34.990.000đ</span>
+                        </div>
+                        <div class="flex items-center gap-2 pt-4 border-t border-gray-50">
+                            <div class="flex text-yellow-400">
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star_half</span>
+                            </div>
+                            <span class="text-[10px] text-gray-500 font-medium">(124 đánh giá)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl border border-gray-100 overflow-hidden group hover:shadow-[0px_10px_25px_rgba(0,0,0,0.08)] transition-all duration-300">
+                    <div class="relative p-6 aspect-square bg-white flex items-center justify-center overflow-hidden">
+                        <span class="absolute top-4 left-4 bg-black text-white text-[10px] font-bold px-2 py-1 rounded-sm uppercase z-10">Mới về</span>
+                        <img alt="S24 Ultra" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="A sleek Samsung Galaxy S24 Ultra displayed in a professional studio setting. The device is positioned at an angle to showcase its titanium frame and sophisticated quad-camera system. The lighting is crisp and modern, creating sharp reflections on the glass surface. Set against a minimalist off-white background, the image conveys high-end performance and technological authority. The color palette is neutral with high-contrast blacks and metallic grays." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKFglBHx7s_Wrt3YgInPErUP9xlRMwckPm4nkbkPmRrcDAq9RRtGBpP2Ci937expF974byrSmQ721HxFZbIhT1wcPeZy6QlNsHd6lfRMpG8nnOD8HQbGWhAsjjeRuU_HE4VzYUBJrShXiBmoYxagaVu2RM0Mrg24BDkuwWY3H2C3xAtHrragg47UejI_GXvIb-QVTWBYTzLhKkpLvTS_M4HiLF4ULF8fLrA1cYdey_uo0PlTLYTd7ca4NMi6oGJUn-lv7IIs9qfCDT"/>
+                        <div class="absolute inset-x-0 bottom-0 p-4 bg-white/80 backdrop-blur-sm transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex gap-2">
+                            <button class="flex-1 bg-black text-white text-xs font-bold py-2 rounded uppercase tracking-tight hover:opacity-90">Thêm vào giỏ</button>
+                            <button class="p-2 border border-black rounded hover:bg-black hover:text-white transition-colors">
+                                <span class="material-symbols-outlined text-sm">compare_arrows</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-xs text-gray-400 font-medium mb-1 uppercase tracking-tighter">Samsung</p>
+                        <h3 class="font-h3 text-base text-gray-900 mb-2 truncate">Samsung Galaxy S24 Ultra 5G - 12GB/256GB</h3>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-lg font-bold text-red-600">26.990.000đ</span>
+                            <span class="text-sm text-gray-400 line-through">31.990.000đ</span>
+                        </div>
+                        <div class="flex items-center gap-2 pt-4 border-t border-gray-50">
+                            <div class="flex text-yellow-400">
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                            </div>
+                            <span class="text-[10px] text-gray-500 font-medium">(86 đánh giá)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl border border-gray-100 overflow-hidden group hover:shadow-[0px_10px_25px_rgba(0,0,0,0.08)] transition-all duration-300">
+                    <div class="relative p-6 aspect-square bg-white flex items-center justify-center overflow-hidden">
+                        <span class="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded-sm uppercase z-10">Bán chạy</span>
+                        <img alt="Xiaomi 14" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="A vibrant Xiaomi smartphone featuring a brilliant emerald green back panel, photographed in a high-key studio setup. The lighting is designed to catch the subtle gradient and reflective patterns of the glass. The camera module is detailed and sharp, conveying a sense of high-performance optics. Set against a pristine, modern white background, the image reflects a professional, energetic retail atmosphere with high-contrast color accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyF8nJBkoTrizg0-LnKV5DS7XOPqStayfV2I8NxOo3nnxlc7UFOHbGRJdnUN6Q5DlNCkifEehHrXhc0oaCCIszEfTGidX6XdO1e35LiIKVlc4xOwByCSTyIV1RZvLOyH11ODWZ9cPNxRslA7U56s5S_cd8UqibYraL2bEa0BRbcniNGu68s23V0AF9wlxVsPiJ1MG4yd3F9ppFBqu5jW9dcod9F-SJdXC4QhwZyG1oT565nrfXmar9gPSTtAFaD-cy6VeNoMsbQhD8"/>
+                        <div class="absolute inset-x-0 bottom-0 p-4 bg-white/80 backdrop-blur-sm transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex gap-2">
+                            <button class="flex-1 bg-black text-white text-xs font-bold py-2 rounded uppercase tracking-tight hover:opacity-90">Thêm vào giỏ</button>
+                            <button class="p-2 border border-black rounded hover:bg-black hover:text-white transition-colors">
+                                <span class="material-symbols-outlined text-sm">compare_arrows</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-xs text-gray-400 font-medium mb-1 uppercase tracking-tighter">Xiaomi</p>
+                        <h3 class="font-h3 text-base text-gray-900 mb-2 truncate">Xiaomi 14 (12GB/256GB) - Leica Optics</h3>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-lg font-bold text-red-600">19.990.000đ</span>
+                            <span class="text-sm text-gray-400 line-through">22.990.000đ</span>
+                        </div>
+                        <div class="flex items-center gap-2 pt-4 border-t border-gray-50">
+                            <div class="flex text-yellow-400">
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs">star</span>
+                            </div>
+                            <span class="text-[10px] text-gray-500 font-medium">(42 đánh giá)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl border border-gray-100 overflow-hidden group hover:shadow-[0px_10px_25px_rgba(0,0,0,0.08)] transition-all duration-300">
+                    <div class="relative p-6 aspect-square bg-white flex items-center justify-center overflow-hidden">
+                        <img alt="Product 4" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="A professional product image of a high-end smartphone with a focus on its ultra-thin profile and minimalist design. The device is placed on a reflective surface that creates a soft, symmetrical double-image. The studio lighting is cold and precise, using blue-toned white light to emphasize the premium glass and metal materials. The aesthetic is clean, authoritative, and sophisticated, suited for a high-performance electronics brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5NYUSpkFXnl8qrUTY7i80Rcjkp9wtZ515Q7WNSx52icDq532tieb1sOg-GwGMRCIoh1fkQ6kuMIiZGOKtRvn9_bLXAVUW6ZBHmfagYDplk7JWHrqYwFODq0_xRrT0CV1_hHllnq8qHse0IxAugchoM0_VkOXPN4gwL-t4PqX3Rst6RgPDqC-cqHRVOCH3LmbN4EaN-wZGHaCl-fb9zOZFjzaszhKY5qqdSwPuYL16fH5FmHhFxrdwOEYsRiAeqX1bieJmZmDlO0rB"/>
+                        <div class="absolute inset-x-0 bottom-0 p-4 bg-white/80 backdrop-blur-sm transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex gap-2">
+                            <button class="flex-1 bg-black text-white text-xs font-bold py-2 rounded uppercase tracking-tight hover:opacity-90">Thêm vào giỏ</button>
+                            <button class="p-2 border border-black rounded hover:bg-black hover:text-white transition-colors">
+                                <span class="material-symbols-outlined text-sm">compare_arrows</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-xs text-gray-400 font-medium mb-1 uppercase tracking-tighter">Oppo</p>
+                        <h3 class="font-h3 text-base text-gray-900 mb-2 truncate">Oppo Reno11 Pro 5G - Thiết kế mỏng nhẹ</h3>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-lg font-bold text-red-600">14.990.000đ</span>
+                            <span class="text-sm text-gray-400 line-through">16.990.000đ</span>
+                        </div>
+                        <div class="flex items-center gap-2 pt-4 border-t border-gray-50">
+                            <div class="flex text-yellow-400">
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs">star_half</span>
+                            </div>
+                            <span class="text-[10px] text-gray-500 font-medium">(31 đánh giá)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl border border-gray-100 overflow-hidden group hover:shadow-[0px_10px_25px_rgba(0,0,0,0.08)] transition-all duration-300">
+                    <div class="relative p-6 aspect-square bg-white flex items-center justify-center overflow-hidden">
+                        <span class="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded-sm uppercase z-10">Flash Sale</span>
+                        <img alt="Product 5" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="A professional studio shot of a sleek smartphone showcasing its vibrant, high-resolution screen displaying a colorful abstract wallpaper. The device is surrounded by soft, diffused lighting that eliminates harsh glares while maintaining high contrast. The composition is clean and modern, set against a light gray and white tonal background. The image evokes a sense of high-speed performance and modern digital lifestyle with a professional retail focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALR9_GBMRzYoza2nUN79svD6e96Ybfs3U304hcDXHj_zm_rJkd01ghTQLki6a5zEAkiy3scukOiJfusftVkAV0FfEOkXHsDKXiwRRDBAjwuHxajdW7CZiGl1eOIBffT8Jl4VgzdcJU0rVBz857YadsQtx7gGV3QUowIshHW737R85q00G9m1rH4khrLysACGVgtRHOgk6QrF8D8JFAYOUNiSh0MtRcY_7R6FMgKfrZHgq-g0r7B8wvlIyfFy3bbeDGDhV2wVnwx81o"/>
+                        <div class="absolute inset-x-0 bottom-0 p-4 bg-white/80 backdrop-blur-sm transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex gap-2">
+                            <button class="flex-1 bg-black text-white text-xs font-bold py-2 rounded uppercase tracking-tight hover:opacity-90">Thêm vào giỏ</button>
+                            <button class="p-2 border border-black rounded hover:bg-black hover:text-white transition-colors">
+                                <span class="material-symbols-outlined text-sm">compare_arrows</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-xs text-gray-400 font-medium mb-1 uppercase tracking-tighter">Realme</p>
+                        <h3 class="font-h3 text-base text-gray-900 mb-2 truncate">Realme 12 Pro+ (12GB/512GB)</h3>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-lg font-bold text-red-600">11.490.000đ</span>
+                            <span class="text-sm text-gray-400 line-through">13.990.000đ</span>
+                        </div>
+                        <div class="flex items-center gap-2 pt-4 border-t border-gray-50">
+                            <div class="flex text-yellow-400">
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs">star</span>
+                            </div>
+                            <span class="text-[10px] text-gray-500 font-medium">(19 đánh giá)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl border border-gray-100 overflow-hidden group hover:shadow-[0px_10px_25px_rgba(0,0,0,0.08)] transition-all duration-300">
+                    <div class="relative p-6 aspect-square bg-white flex items-center justify-center overflow-hidden">
+                        <img alt="Product 6" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="A minimalist and clean product shot of an iPhone in a subtle lavender finish, placed on a matte white surface. The lighting is high-key and bright, emphasizing a light-mode aesthetic. Soft shadows give the product a grounded feel without adding visual clutter. The focus is sharp on the camera lenses and sleek edges, creating a sense of professional reliability and premium build quality typical of high-end gadget retail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMdyfQJf_A2GZRZO6VwwQ-xceegDF40SMi-A3lsgYuyDzt9bDbqZzBBOF7Pt6ezMPCo2zujHZetjWR3cJDjzCw7iA6bTXfVzDgKdebeX3f_kPXzss_7khLqtlo5-A3qjNeiyDJaulUDfeLG5dLc2Tq9nNTMOyUac9v9E7Sl0lkbKRoKYNZ6IeJ_1tid-KlZJt7Id-nlPqhb0wvdd9x0BY3j1gauNUjoFOhLBMJ7uz7ld7OXVDhyX8yLBVppcfNUFfv5BMC48GdWehH"/>
+                        <div class="absolute inset-x-0 bottom-0 p-4 bg-white/80 backdrop-blur-sm transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex gap-2">
+                            <button class="flex-1 bg-black text-white text-xs font-bold py-2 rounded uppercase tracking-tight hover:opacity-90">Thêm vào giỏ</button>
+                            <button class="p-2 border border-black rounded hover:bg-black hover:text-white transition-colors">
+                                <span class="material-symbols-outlined text-sm">compare_arrows</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-xs text-gray-400 font-medium mb-1 uppercase tracking-tighter">Apple</p>
+                        <h3 class="font-h3 text-base text-gray-900 mb-2 truncate">iPhone 14 Plus 128GB - Đủ màu sắc</h3>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-lg font-bold text-red-600">18.290.000đ</span>
+                            <span class="text-sm text-gray-400 line-through">21.990.000đ</span>
+                        </div>
+                        <div class="flex items-center gap-2 pt-4 border-t border-gray-50">
+                            <div class="flex text-yellow-400">
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined text-xs">star</span>
+                            </div>
+                            <span class="text-[10px] text-gray-500 font-medium">(256 đánh giá)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 flex items-center justify-center gap-2">
+                <button class="w-10 h-10 rounded border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors">
+                    <span class="material-symbols-outlined">chevron_left</span>
+                </button>
+                <button class="w-10 h-10 rounded bg-primary-container text-white flex items-center justify-center font-bold">1</button>
+                <button class="w-10 h-10 rounded border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors">2</button>
+                <button class="w-10 h-10 rounded border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors">3</button>
+                <button class="w-10 h-10 rounded border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors">...</button>
+                <button class="w-10 h-10 rounded border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors">12</button>
+                <button class="w-10 h-10 rounded border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Footer -->
+<footer th:fragment="footer" class="w-full mt-12 py-10 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-[1280px] mx-auto px-6">
+        <div class="space-y-4">
+            <a class="text-2xl font-black text-red-600 dark:text-red-500 italic" href="#">TECH-STORE</a>
+            <p class="font-sans text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+                Hệ thống bán lẻ thiết bị di động, laptop, phụ kiện công nghệ chính hãng hàng đầu Việt Nam. Cam kết giá tốt nhất, bảo hành chuyên nghiệp.
+            </p>
+            <div class="flex gap-4">
+                <a class="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center hover:text-red-600 transition-colors" href="#">
+                    <i class="material-symbols-outlined text-lg">public</i>
+                </a>
+                <a class="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center hover:text-red-600 transition-colors" href="#">
+                    <i class="material-symbols-outlined text-lg">share</i>
+                </a>
+            </div>
+        </div>
+        <div class="space-y-4">
+            <h4 class="font-bold text-sm uppercase text-on-surface">Thông tin hỗ trợ</h4>
+            <ul class="space-y-2">
+                <li><a class="font-sans text-xs text-gray-500 dark:text-gray-400 hover:underline hover:text-red-600 transition-colors" href="#">Chính sách đổi trả</a></li>
+                <li><a class="font-sans text-xs text-gray-500 dark:text-gray-400 hover:underline hover:text-red-600 transition-colors" href="#">Hệ thống cửa hàng</a></li>
+                <li><a class="font-sans text-xs text-gray-500 dark:text-gray-400 hover:underline hover:text-red-600 transition-colors" href="#">Tra cứu bảo hành</a></li>
+                <li><a class="font-sans text-xs text-gray-500 dark:text-gray-400 hover:underline hover:text-red-600 transition-colors" href="#">Tuyển dụng</a></li>
+                <li><a class="font-sans text-xs text-gray-500 dark:text-gray-400 hover:underline hover:text-red-600 transition-colors" href="#">Góp ý khiếu nại</a></li>
+            </ul>
+        </div>
+        <div class="space-y-4">
+            <h4 class="font-bold text-sm uppercase text-on-surface">Hotline mua hàng</h4>
+            <div class="space-y-1">
+                <p class="text-primary-container font-black text-xl">1800.2097</p>
+                <p class="font-sans text-xs text-gray-500">(Miễn phí, 8:00 - 22:00)</p>
+            </div>
+        </div>
+        <div class="space-y-4">
+            <h4 class="font-bold text-sm uppercase text-on-surface">Dịch vụ</h4>
+            <ul class="space-y-2 text-xs text-gray-500">
+                <li>Bảo hành chính hãng</li>
+                <li>Thu cũ đổi mới</li>
+                <li>Trả góp 0%</li>
+                <li>Giao nhanh 2 giờ</li>
+            </ul>
+        </div>
+    </div>
+</footer>
+</body></html>

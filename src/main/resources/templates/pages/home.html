@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi" class="light"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>TECH-STORE</title>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Tailwind Config -->
+    <th:block th:replace="fragments/tailwind-config :: #tailwind-config"></th:block>
+</head>
+
+<body class="bg-surface text-on-surface font-body-md">
+
+<!-- Header -->
+<th:block th:replace="fragments/header :: header"></th:block>
+
+<main class="max-w-[1280px] mx-auto px-6">
+
+    <!-- Hero -->
+    <div th:replace="~{sections/hero-banner :: hero-banner}"></div>
+
+    <!-- Flash Sale -->
+    <th:block th:replace="sections/flash-sale :: flash-sale"></th:block>
+
+    <!-- Featured -->
+    <th:block th:replace="sections/featured-products :: featured-products"></th:block>
+
+    <!-- Recommended -->
+    <th:block th:replace="sections/recommended-products :: recommended-products"></th:block>
+
+    <!-- Best Seller -->
+    <th:block th:replace="sections/best-seller-products :: best-seller-products"></th:block>
+
+</main>
+
+<!-- Footer -->
+<th:block th:replace="fragments/footer :: footer"></th:block>
+
+</body>
+</html>
