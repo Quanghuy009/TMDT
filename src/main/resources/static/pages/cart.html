@@ -151,11 +151,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                     <div class="space-y-1.5">
                         <label class="text-caption text-secondary">Họ và tên *</label>
-                        <input class="w-full border border-outline-variant rounded-lg p-3 text-body-md" placeholder="Nhập họ và tên" type="text"/>
+                        <input id="customer-name-input" class="w-full border border-outline-variant rounded-lg p-3 text-body-md" placeholder="Nhập họ và tên" type="text"/>
                     </div>
                     <div class="space-y-1.5">
                         <label class="text-caption text-secondary">Số điện thoại *</label>
-                        <input class="w-full border border-outline-variant rounded-lg p-3 text-body-md" placeholder="Nhập số điện thoại" type="tel"/>
+                        <input id="phone-input" class="w-full border border-outline-variant rounded-lg p-3 text-body-md" placeholder="Nhập số điện thoại" type="tel"/>
                     </div>
                 </div>
 
@@ -186,23 +186,23 @@
                 <div class="space-y-4">
                     <div class="space-y-1.5">
                         <label class="text-caption text-secondary">Địa chỉ nhận hàng *</label>
-                        <input class="w-full border border-outline-variant rounded-lg p-3 text-body-md" placeholder="Số nhà, tên đường, phường/xã..." type="text"/>
+                        <input id="address-input" class="w-full border border-outline-variant rounded-lg p-3 text-body-md" placeholder="Số nhà, tên đường, phường/xã..." type="text"/>
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
-                        <select class="border border-outline-variant rounded-lg p-3 text-body-md">
+                        <select id="province-select" class="border border-outline-variant rounded-lg p-3 text-body-md">
                             <option>Chọn Tỉnh/Thành phố</option>
                             <option>Hà Nội</option>
                             <option>TP. Hồ Chí Minh</option>
                             <option>Đà Nẵng</option>
                         </select>
 
-                        <select class="border border-outline-variant rounded-lg p-3 text-body-md">
+                        <select id="district-select" class="border border-outline-variant rounded-lg p-3 text-body-md">
                             <option>Chọn Quận/Huyện</option>
                         </select>
                     </div>
 
-                    <textarea class="w-full border border-outline-variant rounded-lg p-3 text-body-md" placeholder="Ghi chú thêm (Ví dụ: Giao giờ hành chính)" rows="3"></textarea>
+                    <textarea id="note-input" class="w-full border border-outline-variant rounded-lg p-3 text-body-md" placeholder="Ghi chú thêm (Ví dụ: Giao giờ hành chính)" rows="3"></textarea>
                 </div>
             </div>
 
@@ -291,7 +291,7 @@
                         </div>
                     </div>
 
-                    <button class="w-full bg-primary-container text-white py-4 rounded-xl font-bold text-body-lg hover:opacity-90 active:scale-[0.98] transition-all shadow-lg shadow-red-200 mt-4 uppercase tracking-wider">
+                    <button id="place-order-btn" class="w-full bg-primary-container text-white py-4 rounded-xl font-bold text-body-lg hover:opacity-90 active:scale-[0.98] transition-all shadow-lg shadow-red-200 mt-4 uppercase tracking-wider">
                         Xác nhận đặt hàng
                     </button>
 
