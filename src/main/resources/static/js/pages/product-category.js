@@ -23,6 +23,11 @@ import {
     getCategoryProducts
 } from "../api/product-category-api.js";
 
+import { handleAddToCart, handleBuyNow } from "../actions/cart-actions.js";
+
+window.addToCart = handleAddToCart;
+window.buyNow = handleBuyNow;
+
 const DEFAULT_TYPE = "phone";
 const DEFAULT_SORT = "newest";
 const LOAD_MORE_STEP = 12;
@@ -209,27 +214,57 @@ function filterProducts(products) {
                 return false;
             }
 
-            return String(productValue)
-                .toLowerCase()
-                .includes(String(value).toLowerCase());
+            return matchFilterValue(key, productValue, value);
         });
     });
 }
 
 function getProductFieldValue(product, key) {
-    return product[key];
+    if (key in product) {
+        return product[key];
+    }
+
+    if (product.specs && key in product.specs) {
+        return product.specs[key];
+    }
+
+    return null;
+}
+
+function matchFilterValue(key, productValue, filterValue) {
+    if (key === "screen_size") {
+        return matchScreenSize(productValue, filterValue);
+    }
+
+    if (key === "battery_capacity") {
+        return matchBatteryCapacity(productValue, filterValue);
+    }
+
+    if (key === "battery_life") {
+        return matchGenericRange(productValue, filterValue);
+    }
+
+    if (key === "power") {
+        return matchGenericRange(productValue, filterValue);
+    }
+
+    if (key === "dpi") {
+        return matchGenericRange(productValue, filterValue);
+    }
+
+    const productText = normalizeText(productValue);
+    const filterText = normalizeText(filterValue);
+
+    return productText.includes(filterText) || filterText.includes(productText);
 }
 
 function matchPriceRange(product, rangeValue) {
     const price = getDisplayPrice(product);
 
-    const [minRaw, maxRaw] = String(rangeValue).split("-");
-
-    const min = minRaw ? Number(minRaw) : 0;
-    const max = maxRaw ? Number(maxRaw) : Infinity;
-
-    return price >= min && price <= max;
+    return matchRangeValue(price, rangeValue);
 }
+
+
 
 function sortProducts(products) {
     const copied = [...products];
@@ -512,5 +547,154 @@ function showProductError() {
     const pagination = document.getElementById("pagination");
     if (pagination) {
         pagination.innerHTML = "";
+    }
+}
+
+function normalizeText(value) {
+    return String(value)
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
+}
+
+function extractNumber(value) {
+    const match = String(value).match(/[\d.]+/);
+    return match ? Number(match[0]) : null;
+}
+
+function matchRangeValue(numberValue, rangeValue) {
+    const [minRaw, maxRaw] = String(rangeValue).split("-");
+
+    const min = minRaw ? Number(minRaw) : 0;
+    const max = maxRaw ? Number(maxRaw) : Infinity;
+
+    return numberValue >= min && numberValue <= max;
+}
+
+function matchGenericRange(productValue, rangeValue) {
+    const numberValue = extractNumber(productValue);
+
+    if (numberValue === null) {
+        return false;
+    }
+
+    if (String(rangeValue).includes("-")) {
+        return matchRangeValue(numberValue, rangeValue);
+    }
+
+    return normalizeText(productValue).includes(normalizeText(rangeValue));
+}
+
+function matchScreenSize(productValue, filterValue) {
+    const size = extractNumber(productValue);
+
+    if (size === null) {
+        return false;
+    }
+
+    switch (filterValue) {
+        case "Dưới 6 inch":
+            return size < 6;
+
+        case "6.0 - 6.4 inch":
+            return size >= 6.0 && size <= 6.4;
+
+        case "6.5 - 6.7 inch":
+            return size >= 6.5 && size <= 6.7;
+
+        case "Trên 6.7 inch":
+            return size > 6.7;
+
+        case "Dưới 8 inch":
+            return size < 8;
+
+        case "8 - 10 inch":
+            return size >= 8 && size <= 10;
+
+        case "10 - 11 inch":
+            return size >= 10 && size <= 11;
+
+        case "11 - 12 inch":
+            return size >= 11 && size <= 12;
+
+        case "Trên 12 inch":
+            return size > 12;
+
+        case "Dưới 13 inch":
+            return size < 13;
+
+        case "13 - 14 inch":
+            return size >= 13 && size <= 14;
+
+        case "14 - 15 inch":
+            return size >= 14 && size <= 15;
+
+        case "15 - 16 inch":
+            return size >= 15 && size <= 16;
+
+        case "Trên 16 inch":
+            return size > 16;
+
+        default:
+            return normalizeText(productValue).includes(normalizeText(filterValue));
+    }
+}
+
+function matchBatteryCapacity(productValue, filterValue) {
+    const battery = extractNumber(productValue);
+
+    if (battery === null) {
+        return false;
+    }
+
+    switch (filterValue) {
+        // Phone
+        case "Dưới 4000 mAh":
+            return battery < 4000;
+
+        case "4000 - 4500 mAh":
+            return battery >= 4000 && battery <= 4500;
+
+        case "4500 - 5000 mAh":
+            return battery >= 4500 && battery <= 5000;
+
+        case "Trên 5000 mAh":
+            return battery > 5000;
+
+        // Tablet
+        case "Dưới 5000 mAh":
+            return battery < 5000;
+
+        case "5000 - 7000 mAh":
+            return battery >= 5000 && battery <= 7000;
+
+        case "7000 - 9000 mAh":
+            return battery >= 7000 && battery <= 9000;
+
+        case "9000 - 11000 mAh":
+            return battery >= 9000 && battery <= 11000;
+
+        case "Trên 11000 mAh":
+            return battery > 11000;
+
+        // Laptop
+        case "Dưới 40 Wh":
+            return battery < 40;
+
+        case "40 - 50 Wh":
+            return battery >= 40 && battery <= 50;
+
+        case "50 - 60 Wh":
+            return battery >= 50 && battery <= 60;
+
+        case "60 - 70 Wh":
+            return battery >= 60 && battery <= 70;
+
+        case "Trên 70 Wh":
+            return battery > 70;
+
+        default:
+            return normalizeText(productValue).includes(normalizeText(filterValue));
     }
 }

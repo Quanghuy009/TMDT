@@ -1,28 +1,102 @@
 package TMDT.store.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import TMDT.store.security.JwtAuthenticationFilter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.*;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.*;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableWebSecurity
+@EnableMethodSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(auth -> auth
-                        // Cho phép truy cập tất cả file static (HTML, CSS, JS, images)
-                        .requestMatchers("/**").permitAll()
-                        // Cho phép tất cả API (sau này sẽ chỉnh lại)
-                        .requestMatchers("/api/**").permitAll()
-                )
-                .csrf(csrf -> csrf.disable())           // Tắt CSRF tạm thời (vì FE thuần)
-                .formLogin(form -> form.disable())      // Tắt trang login mặc định
-                .logout(logout -> logout.disable());    // Tắt logout mặc định
+        return http
+                .csrf(csrf -> csrf.disable())
 
-        return http.build();
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+
+                .authorizeHttpRequests(auth -> auth
+
+                        // Static pages
+                        .requestMatchers(
+                                "/",
+                                "/index.html",
+                                "/category",
+                                "/pages/**",
+                                "/fragments/**"
+                        ).permitAll()
+
+                        // Static resources
+                        .requestMatchers(
+                                "/js/**",
+                                "/css/**",
+                                "/images/**",
+                                "/assets/**",
+                                "/favicon.ico"
+                        ).permitAll()
+
+                        // Public APIs
+                        .requestMatchers(
+                                "/api/auth/**",
+                                "/api/products/**",
+                                "/api/flash-sale/**",
+                                "/api/flash-sales/**",
+                                "/api/banners/**",
+                                "/api/banner/**",
+                                "/api/hero-banner/**",
+                                "/api/hero-banners/**",
+                                "/api/featured-products/**",
+                                "/api/recommended-products/**",
+                                "/api/best-seller/**",
+                                "/api/best-sellers/**"
+                        ).permitAll()
+
+                        // Admin APIs
+                        .requestMatchers("/api/admin/**")
+                        .hasRole("ADMIN")
+
+                        // User APIs
+                        .requestMatchers("/api/cart/**")
+                        .hasAnyRole("USER", "ADMIN")
+
+                        .requestMatchers("/api/orders/**")
+                        .hasAnyRole("USER", "ADMIN")
+
+                        // Others
+                        .anyRequest().authenticated()
+                )
+
+                .addFilterBefore(
+                        jwtAuthenticationFilter,
+                        UsernamePasswordAuthenticationFilter.class
+                )
+
+                .build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration configuration
+    ) throws Exception {
+        return configuration.getAuthenticationManager();
     }
 }

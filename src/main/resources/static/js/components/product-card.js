@@ -1,7 +1,7 @@
 export function renderProductCard(p) {
     const imageUrl = p.image
         ? `/images/products/${p.image}`
-        : '/images/products/default.jpg';
+        : "/images/products/default.jpg";
 
     return `
         <div class="bg-white border border-gray-300 rounded-xl p-card-padding group ambient-lift transition-all cursor-pointer"
@@ -25,7 +25,7 @@ export function renderProductCard(p) {
                             <div class="flex flex-col">
                                 <div class="flex items-center gap-2">
                                     <p class="text-primary-container font-bold text-lg">
-                                        ${Number(p.salePrice).toLocaleString('vi-VN')}đ
+                                        ${Number(p.salePrice).toLocaleString("vi-VN")}đ
                                     </p>
                                     <span class="bg-primary-container text-white text-[10px] font-bold px-2 py-1 rounded-full">
                                         -${p.discountPercent}%
@@ -33,13 +33,13 @@ export function renderProductCard(p) {
                                 </div>
 
                                 <span class="text-gray-400 text-xs line-through">
-                                    ${Number(p.price).toLocaleString('vi-VN')}đ
+                                    ${Number(p.price).toLocaleString("vi-VN")}đ
                                 </span>
                             </div>
                         `
             : `
                             <p class="text-primary-container font-bold text-lg">
-                                ${Number(p.price).toLocaleString('vi-VN')}đ
+                                ${Number(p.price).toLocaleString("vi-VN")}đ
                             </p>
                         `
     }
@@ -47,13 +47,13 @@ export function renderProductCard(p) {
 
             <div class="flex gap-2 pt-3">
                 <button
-                    onclick="addToCart(${p.id}); event.stopPropagation();"
+                    onclick="event.stopPropagation(); window.buyNow(${p.id});"
                     class="flex-1 bg-primary-container hover:bg-primary text-white text-sm font-bold py-2.5 rounded-lg">
                     Mua ngay
                 </button>
 
                 <button
-                    onclick="addToCart(${p.id}); event.stopPropagation();"
+                    onclick="event.stopPropagation(); window.addToCart(${p.id});"
                     class="w-11 flex items-center justify-center border border-gray-300 rounded-lg">
                     <span class="material-symbols-outlined text-[20px]">
                         shopping_cart

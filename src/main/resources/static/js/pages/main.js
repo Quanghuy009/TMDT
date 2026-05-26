@@ -5,6 +5,10 @@ import {
     loadFragment,
     activeHeaderMenu
 } from '../components/layout.js';
+import { handleAddToCart, handleBuyNow } from "../actions/cart-actions.js";
+
+window.addToCart = handleAddToCart;
+window.buyNow = handleBuyNow;
 
 document.addEventListener('DOMContentLoaded', async () => {
     // 1. Load header/footer trước
