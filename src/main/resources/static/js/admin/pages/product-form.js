@@ -15,7 +15,7 @@ let productId = null;
 let isEditMode = false;
 
 document.addEventListener("DOMContentLoaded", async () => {
-    await loadAdminLayout("products");
+    await loadAdminLayout();
 
     initSpecForm();
 

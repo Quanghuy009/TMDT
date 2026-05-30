@@ -9,7 +9,7 @@ let allProducts = [];
 let filteredProducts = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
-    await loadAdminLayout("products");
+    await loadAdminLayout();
 
     await loadProducts();
 

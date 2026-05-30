@@ -20,26 +20,34 @@ body {
     background: #e3bebb;
     border-radius: 10px;
 }
-
 .admin-menu-item {
     display: flex;
     align-items: center;
-    padding: 12px 16px;
-    border-radius: 8px;
-    color: #5e5e5e;
+    padding: 10px 14px;
+    border-radius: 10px;
     font-size: 14px;
     font-weight: 600;
+    color: #5e5e5e;
     transition: all 0.2s ease;
 }
 
 .admin-menu-item:hover {
+    background-color: #ecf5fe;
     color: #98001b;
-    background-color: #e6eff8;
+    transform: translateX(2px);
 }
 
 .admin-menu-item.active {
-    color: #98001b;
-    background-color: #ffdad8;
-    border-right: 4px solid #98001b;
-    font-weight: 700;
+    background-color: #be1e2d;
+    color: #ffffff;
+    box-shadow: 0 8px 18px rgba(190, 30, 45, 0.18);
+}
+
+.admin-menu-item.active .material-symbols-outlined {
+    color: #ffffff;
+}
+
+.admin-menu-item .material-symbols-outlined {
+    font-size: 20px;
+    transition: all 0.2s ease;
 }
