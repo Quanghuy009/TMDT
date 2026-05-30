@@ -66,8 +66,11 @@ public class SecurityConfig {
                         ).permitAll()
 
                         // Admin APIs
+                        //.requestMatchers("/api/admin/**")
+                        //.hasRole("ADMIN")
+                        // Admin APIs - tạm thời mở để test giao diện admin
                         .requestMatchers("/api/admin/**")
-                        .hasRole("ADMIN")
+                        .permitAll()
 
                         // User APIs
                         .requestMatchers("/api/cart/**")

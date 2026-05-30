@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Thêm sản phẩm | TechStore Admin</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="/css/admin.css"/>
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#f6faff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#ecf5fe",
+                        "surface-container": "#e6eff8",
+                        "surface-bright": "#f6faff",
+                        "on-surface": "#141d23",
+                        "on-surface-variant": "#5b403f",
+                        "primary": "#98001b",
+                        "primary-container": "#be1e2d",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#ffd3d1",
+                        "secondary": "#5e5e5e",
+                        "outline": "#8f6f6e",
+                        "outline-variant": "#e3bebb",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6"
+                    },
+                    spacing: {
+                        "gutter": "24px",
+                        "base": "8px",
+                        "container-max": "1280px"
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+
+<body class="bg-surface text-on-surface overflow-x-hidden">
+
+<div id="admin-sidebar"></div>
+<div id="admin-topbar"></div>
+
+<!-- Main Content -->
+<main class="ml-64 mt-1 p-5 min-h-[calc(100vh-4rem)] max-w-full overflow-x-hidden">
+    <div class="max-w-4xl mx-auto">
+        <div class="flex justify-between items-center mb-6">
+            <div>
+                <h2 class="text-2xl font-bold text-on-surface mb-1" id="page-title">
+                    Thêm sản phẩm
+                </h2>
+
+                <nav class="flex text-[12px] font-medium text-slate-500 mt-1">
+                    <span>Sản phẩm</span>
+                    <span class="mx-2">/</span>
+                    <span class="text-primary font-bold" id="breadcrumb-current">Thêm mới</span>
+                </nav>
+            </div>
+
+            <div class="flex gap-3">
+                <a class="px-4 py-2 border border-slate-300 rounded-lg text-slate-600 font-semibold text-[13px] hover:bg-slate-50 transition-all flex items-center"
+                   href="/pages/admin/product-management.html">
+                    Quay lại
+                </a>
+
+                <button class="px-4 py-2 bg-primary-container text-on-primary rounded-lg font-semibold text-[13px] shadow-md hover:opacity-90 transition-all flex items-center gap-1.5"
+                        id="submit-btn"
+                        type="submit"
+                        form="product-form">
+                    <span class="material-symbols-outlined text-[18px]">save</span>
+                    <span id="submit-text">Lưu sản phẩm</span>
+                </button>
+            </div>
+        </div>
+
+        <form class="space-y-5" id="product-form">
+            <!-- Các section nhập liệu đặt ở đây -->
+            <section class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant shadow-sm">
+                <h3 class="text-base font-bold mb-5 flex items-center gap-2 border-b pb-3">
+                    <span class="material-symbols-outlined text-primary text-[20px]">info</span>
+                    Thông tin cơ bản
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="md:col-span-2">
+                        <label class="block font-semibold text-[13px] text-on-surface mb-1.5">
+                            Tên sản phẩm
+                        </label>
+                        <input class="w-full border border-outline rounded-lg p-2.5 text-[13px] focus:ring-2 focus:ring-primary-container outline-none transition-all"
+                               name="name"
+                               placeholder="Nhập tên sản phẩm..."
+                               required
+                               type="text"/>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-[13px] text-on-surface mb-1.5">
+                            Giá bán (VNĐ)
+                        </label>
+                        <input class="w-full border border-outline rounded-lg p-2.5 text-[13px] focus:ring-2 focus:ring-primary-container outline-none transition-all"
+                               name="price"
+                               placeholder="0"
+                               min="0"
+                               required
+                               type="number"/>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-[13px] text-on-surface mb-1.5">
+                            Số lượng tồn kho
+                        </label>
+                        <input class="w-full border border-outline rounded-lg p-2.5 text-[13px] focus:ring-2 focus:ring-primary-container outline-none transition-all"
+                               name="quantity"
+                               placeholder="0"
+                               min="0"
+                               required
+                               type="number"/>
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label class="block font-semibold text-[13px] text-on-surface mb-1.5">
+                            Tên tệp hình ảnh
+                        </label>
+                        <input class="w-full border border-outline rounded-lg p-2.5 text-[13px] focus:ring-2 focus:ring-primary-container outline-none transition-all"
+                               name="image"
+                               placeholder="example.jpg"
+                               type="text"/>
+                        <p class="text-[11px] text-secondary mt-1">
+                            File ảnh đặt trong thư mục /images/products/. Nếu bỏ trống sẽ dùng ảnh mặc định.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <section class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant shadow-sm">
+                <h3 class="text-base font-bold mb-5 flex items-center gap-2 border-b pb-3">
+                    <span class="material-symbols-outlined text-primary text-[20px]">category</span>
+                    Phân loại
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block font-semibold text-[13px] text-on-surface mb-1.5">
+                            Danh mục
+                        </label>
+
+                        <select class="w-full border border-outline rounded-lg p-2.5 text-[13px] focus:ring-2 focus:ring-primary-container outline-none"
+                                id="category-select"
+                                name="categoryId"
+                                required>
+                            <option value="">Chọn danh mục</option>
+                            <option value="1" data-name="Điện thoại">Điện thoại</option>
+                            <option value="2" data-name="Laptop">Laptop</option>
+                            <option value="3" data-name="Tablet">Tablet</option>
+                            <option value="4" data-name="Phụ kiện">Phụ kiện</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-[13px] text-on-surface mb-1.5">
+                            Thương hiệu
+                        </label>
+
+                        <select class="w-full border border-outline rounded-lg p-2.5 text-[13px] focus:ring-2 focus:ring-primary-container outline-none"
+                                id="brand-select"
+                                name="brandId"
+                                required>
+                            <option value="">Chọn thương hiệu</option>
+                            <option value="1">Apple</option>
+                            <option value="2">Samsung</option>
+                            <option value="3">Asus</option>
+                            <option value="4">Logitech</option>
+                            <option value="5">Razer</option>
+                            <option value="6">Sony</option>
+                        </select>
+                    </div>
+
+                    <div class="hidden md:col-span-2" id="accessory-type-container">
+                        <label class="block font-semibold text-[13px] text-on-surface mb-1.5">
+                            Loại phụ kiện
+                        </label>
+
+                        <select class="w-full border border-outline rounded-lg p-2.5 text-[13px] focus:ring-2 focus:ring-primary-container outline-none"
+                                id="accessory-type-select"
+                                name="accessoryType">
+                            <option value="">Chọn loại phụ kiện</option>
+                            <option value="headphone">Tai nghe</option>
+                            <option value="keyboard">Bàn phím</option>
+                            <option value="mouse">Chuột</option>
+                            <option value="speaker">Loa</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+            <div class="space-y-5" id="spec-container">
+
+                <section class="spec-section hidden bg-surface-container-lowest p-5 rounded-xl border border-outline-variant shadow-sm"
+                         id="spec-device">
+                    <h3 class="text-base font-bold mb-5 flex items-center gap-2 border-b pb-3 text-primary">
+                        Thông số kỹ thuật thiết bị
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">CPU/Chip</label>
+                            <input name="cpuChip" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">GPU</label>
+                            <input name="gpuChip" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">RAM</label>
+                            <input name="ram" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Bộ nhớ trong</label>
+                            <input name="storageCapacity" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Camera trước</label>
+                            <input name="frontCamera" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Camera sau</label>
+                            <input name="rearCamera" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Kích thước màn hình</label>
+                            <input name="screenSize" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Độ phân giải màn hình</label>
+                            <input name="screenResolution" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Công nghệ màn hình</label>
+                            <input name="displayTechnology" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Dung lượng pin</label>
+                            <input name="batteryCapacity" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Công suất sạc</label>
+                            <input name="chargingPower" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label class="block text-[13px] font-bold mb-1">Tiện ích khác</label>
+                            <textarea name="utilities" class="w-full border border-slate-200 rounded p-2 text-[13px]" rows="2"></textarea>
+                        </div>
+                    </div>
+                </section>
+                <section class="spec-section hidden bg-surface-container-lowest p-5 rounded-xl border border-outline-variant shadow-sm"
+                         id="spec-headphone">
+                    <h3 class="text-base font-bold mb-5 flex items-center gap-2 border-b pb-3 text-primary">
+                        Thông số Tai nghe
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Loại tai nghe</label>
+                            <input name="headphoneType" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Khoảng cách kết nối</label>
+                            <input name="connectionDistance" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Công nghệ âm thanh</label>
+                            <input name="audioTechnology" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Tương thích hệ điều hành</label>
+                            <input name="compatibleOs" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Thời lượng pin</label>
+                            <input name="batteryLife" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Jack cắm</label>
+                            <input name="jackType" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label class="block text-[13px] font-bold mb-1">Tiện ích khác</label>
+                            <textarea name="headphoneUtilities" class="w-full border border-slate-200 rounded p-2 text-[13px]" rows="2"></textarea>
+                        </div>
+                    </div>
+                </section>
+                <section class="spec-section hidden bg-surface-container-lowest p-5 rounded-xl border border-outline-variant shadow-sm"
+                         id="spec-keyboard">
+                    <h3 class="text-base font-bold mb-5 flex items-center gap-2 border-b pb-3 text-primary">
+                        Thông số Bàn phím
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Loại bàn phím</label>
+                            <input name="keyboardType" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Kết nối</label>
+                            <input name="keyboardConnection" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Layout</label>
+                            <input name="layout" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Switch</label>
+                            <input name="switchType" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Đèn Led</label>
+                            <input name="led" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Hệ điều hành hỗ trợ</label>
+                            <input name="keyboardCompatibleOs" class="w-full border border-slate-200 rounded p-2 text-[13px]" type="text"/>
+                        </div>
+                    </div>
+                </section>
+                <section class="spec-section hidden bg-surface-container-lowest p-5 rounded-xl border border-outline-variant shadow-sm"
+                         id="spec-mouse">
+                    <h3 class="text-base font-bold mb-5 flex items-center gap-2 border-b pb-3 text-primary">
+                        <span class="material-symbols-outlined text-[20px]">mouse</span>
+                        Thông số Chuột
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Loại chuột</label>
+                            <input name="mouseType"
+                                   class="w-full border border-slate-200 rounded p-2 text-[13px]"
+                                   placeholder="Ví dụ: Chuột gaming, chuột văn phòng..."
+                                   type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Kết nối</label>
+                            <input name="connectionType"
+                                   class="w-full border border-slate-200 rounded p-2 text-[13px]"
+                                   placeholder="Ví dụ: Bluetooth, USB, Wireless 2.4GHz..."
+                                   type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Độ phân giải DPI</label>
+                            <input name="dpi"
+                                   class="w-full border border-slate-200 rounded p-2 text-[13px]"
+                                   placeholder="Ví dụ: 12000 DPI"
+                                   type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Cảm biến</label>
+                            <input name="sensor"
+                                   class="w-full border border-slate-200 rounded p-2 text-[13px]"
+                                   placeholder="Ví dụ: Optical, Hero Sensor..."
+                                   type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Số nút bấm</label>
+                            <input name="buttonCount"
+                                   class="w-full border border-slate-200 rounded p-2 text-[13px]"
+                                   placeholder="Ví dụ: 6 nút"
+                                   type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Đèn LED/RGB</label>
+                            <input name="led"
+                                   class="w-full border border-slate-200 rounded p-2 text-[13px]"
+                                   placeholder="Ví dụ: Có RGB, Không có"
+                                   type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Pin / Thời lượng sử dụng</label>
+                            <input name="batteryLife"
+                                   class="w-full border border-slate-200 rounded p-2 text-[13px]"
+                                   placeholder="Ví dụ: 70 giờ, dùng pin AA..."
+                                   type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Hệ điều hành hỗ trợ</label>
+                            <input name="compatibleOs"
+                                   class="w-full border border-slate-200 rounded p-2 text-[13px]"
+                                   placeholder="Ví dụ: Windows, macOS"
+                                   type="text"/>
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label class="block text-[13px] font-bold mb-1">Tiện ích khác</label>
+                            <textarea name="utilities"
+                                      class="w-full border border-slate-200 rounded p-2 text-[13px]"
+                                      placeholder="Ví dụ: chống trượt, chỉnh DPI, sạc nhanh..."
+                                      rows="2"></textarea>
+                        </div>
+
+                    </div>
+                </section>
+                <section class="spec-section hidden bg-surface-container-lowest p-5 rounded-xl border border-outline-variant shadow-sm"
+                         id="spec-speaker">
+                    <h3 class="text-base font-bold mb-5 flex items-center gap-2 border-b pb-3 text-primary">
+                        <span class="material-symbols-outlined text-[20px]">speaker</span>
+                        Thông số Loa
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Loại loa</label>
+                            <input name="speakerType"
+                                   class="w-full border border-slate-200 rounded p-2 text-[13px]"
+                                   placeholder="Ví dụ: Loa Bluetooth, loa vi tính..."
+                                   type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Công suất</label>
+                            <input name="power"
+                                   class="w-full border border-slate-200 rounded p-2 text-[13px]"
+                                   placeholder="Ví dụ: 20 W"
+                                   type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Kết nối</label>
+                            <input name="connectionType"
+                                   class="w-full border border-slate-200 rounded p-2 text-[13px]"
+                                   placeholder="Ví dụ: Bluetooth 5.3, AUX, USB-C..."
+                                   type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Công nghệ âm thanh</label>
+                            <input name="audioTechnology"
+                                   class="w-full border border-slate-200 rounded p-2 text-[13px]"
+                                   placeholder="Ví dụ: JBL Original Pro Sound"
+                                   type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Thời lượng pin</label>
+                            <input name="batteryLife"
+                                   class="w-full border border-slate-200 rounded p-2 text-[13px]"
+                                   placeholder="Ví dụ: 12 giờ"
+                                   type="text"/>
+                        </div>
+
+                        <div>
+                            <label class="block text-[13px] font-bold mb-1">Khả năng chống nước</label>
+                            <input name="waterResistance"
+                                   class="w-full border border-slate-200 rounded p-2 text-[13px]"
+                                   placeholder="Ví dụ: IP67, Không có"
+                                   type="text"/>
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label class="block text-[13px] font-bold mb-1">Tiện ích khác</label>
+                            <textarea name="utilities"
+                                      class="w-full border border-slate-200 rounded p-2 text-[13px]"
+                                      placeholder="Ví dụ: ghép đôi nhiều loa, micro đàm thoại..."
+                                      rows="2"></textarea>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </form>
+
+        <!-- Nội dung form đặt ở đây -->
+
+    </div>
+</main>
+
+<script type="module" src="/js/admin/pages/product-form.js"></script>
+</body>
+</html>

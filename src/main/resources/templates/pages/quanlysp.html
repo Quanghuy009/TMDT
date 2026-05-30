@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Product Management | TechStore Admin</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f6faff;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e3bebb;
+            border-radius: 10px;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f6faff",
+                        "surface-dim": "#d2dbe4",
+                        "on-surface": "#141d23",
+                        "primary-container": "#be1e2d",
+                        "on-background": "#141d23",
+                        "surface-bright": "#f6faff",
+                        "on-primary-container": "#ffd3d1",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#8f6f6e",
+                        "inverse-primary": "#ffb3b0",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#e2e2e2",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#ffb3b0",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#1b1b1b",
+                        "secondary": "#5e5e5e",
+                        "secondary-container": "#e2e2e2",
+                        "on-tertiary-container": "#dcdedf",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#474747",
+                        "inverse-on-surface": "#e9f2fb",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#191c1d",
+                        "surface-container-highest": "#dbe4ed",
+                        "surface-variant": "#dbe4ed",
+                        "background": "#f6faff",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#484a4b",
+                        "tertiary-fixed-dim": "#c5c7c8",
+                        "surface-tint": "#b91a2a",
+                        "outline-variant": "#e3bebb",
+                        "surface-container-high": "#e0e9f2",
+                        "tertiary-container": "#5f6263",
+                        "inverse-surface": "#293138",
+                        "on-primary-fixed": "#410006",
+                        "on-primary-fixed-variant": "#930019",
+                        "tertiary-fixed": "#e1e3e4",
+                        "on-tertiary-fixed-variant": "#454748",
+                        "surface-container-low": "#ecf5fe",
+                        "on-surface-variant": "#5b403f",
+                        "secondary-fixed-dim": "#c6c6c6",
+                        "surface-container": "#e6eff8",
+                        "on-secondary-container": "#646464",
+                        "primary": "#98001b",
+                        "primary-fixed": "#ffdad8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "64px",
+                        "card-padding": "16px",
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "spec-label": ["Inter"],
+                        "spec-value": ["Inter"],
+                        "h3": ["Inter"],
+                        "h1": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "h2": ["Inter"],
+                        "caption": ["Inter"]
+                    },
+                    "fontSize": {
+                        "spec-label": ["14px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "spec-value": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h2": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "caption": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface overflow-x-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-lowest dark:bg-inverse-surface h-screen w-64 fixed left-0 top-0 border-r border-outline-variant dark:border-outline flex flex-col py-base z-50">
+    <div class="px-6 py-4 flex flex-col gap-1">
+        <h1 class="font-h3 text-h3 font-bold text-primary dark:text-primary-fixed-dim">TechStore Admin</h1>
+        <p class="font-caption text-caption text-secondary">Tech Retail Excellence</p>
+    </div>
+    <div class="flex-1 overflow-y-auto mt-4 px-3 custom-scrollbar">
+        <ul class="space-y-1">
+            <li>
+                <a class="flex items-center px-4 py-3 font-spec-label text-spec-label rounded-lg text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-container-highest transition-colors duration-200" href="#">
+                    <span class="material-symbols-outlined mr-3">dashboard</span>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a class="flex items-center px-4 py-3 font-spec-label text-spec-label rounded-lg text-primary dark:text-primary-fixed-dim font-bold border-r-4 border-primary dark:border-primary-fixed-dim bg-primary-fixed dark:bg-primary-container transition-colors duration-200" href="#">
+                    <span class="material-symbols-outlined mr-3">inventory_2</span>
+                    Product Management
+                </a>
+            </li>
+            <li>
+                <a class="flex items-center px-4 py-3 font-spec-label text-spec-label rounded-lg text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-container-highest transition-colors duration-200" href="#">
+                    <span class="material-symbols-outlined mr-3">category</span>
+                    Category Management
+                </a>
+            </li>
+            <li>
+                <a class="flex items-center px-4 py-3 font-spec-label text-spec-label rounded-lg text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-container-highest transition-colors duration-200" href="#">
+                    <span class="material-symbols-outlined mr-3">branding_watermark</span>
+                    Brand Management
+                </a>
+            </li>
+            <li>
+                <a class="flex items-center px-4 py-3 font-spec-label text-spec-label rounded-lg text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-container-highest transition-colors duration-200" href="#">
+                    <span class="material-symbols-outlined mr-3">shopping_cart</span>
+                    Order Management
+                </a>
+            </li>
+            <li>
+                <a class="flex items-center px-4 py-3 font-spec-label text-spec-label rounded-lg text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-container-highest transition-colors duration-200" href="#">
+                    <span class="material-symbols-outlined mr-3">group</span>
+                    Customer Management
+                </a>
+            </li>
+            <li>
+                <a class="flex items-center px-4 py-3 font-spec-label text-spec-label rounded-lg text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-container-highest transition-colors duration-200" href="#">
+                    <span class="material-symbols-outlined mr-3">campaign</span>
+                    Promotions
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="mt-auto px-4 py-6 border-t border-outline-variant">
+        <div class="flex items-center gap-3 mb-4">
+            <img alt="TechStore Admin Avatar" class="w-10 h-10 rounded-full object-cover" data-alt="A professional headshot of a modern retail administrator in a high-key, well-lit office environment. The lighting is soft and flattering, highlighting a friendly and authoritative expression. The background is a clean, minimalist workspace with a blurred high-end tech setup, reflecting a corporate and energetic tech retail brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-U_LZ0Ij_PFPT7c96TXO614XiyK8HZ8KMpBZ84YG_cTGGgM8ty1hthGOFtAxq9-V7bBEcgl5ijcDAtWdKGUe7MAuu2sARgnAfxS-JgdoGfLBIHneWaiGW5ZL2kxRLz-jRw9HQ2PpbwcTn24Bd7qmr-Ekv1Wo6bPFlU1aT2JFqSg9H3dKN_uMxq3OU_ZBWlO3AJmE6TSrjhK6Tq6s6_snaG6DhO4JKwQl9g4URm7gwxIhBh0zMhW6h3X9P3s3Emf5uacwgqYGnI0Qh"/>
+            <div class="flex flex-col">
+                <span class="font-spec-label text-spec-label text-on-surface">Admin User</span>
+                <span class="text-[10px] text-secondary">Super Admin</span>
+            </div>
+        </div>
+        <button class="w-full bg-primary-container text-on-primary-container py-2 rounded-lg font-spec-label text-spec-label hover:opacity-90 transition-all flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined text-sm">open_in_new</span>
+            View Storefront
+        </button>
+    </div>
+</nav>
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-gutter h-16 ml-64 max-w-[calc(100%-16rem)] bg-surface dark:bg-on-background sticky top-0 border-b border-outline-variant dark:border-outline z-40">
+    <div class="flex items-center gap-4 flex-1">
+        <div class="relative w-full max-w-md">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+            <input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-full text-spec-value focus:ring-2 focus:ring-primary outline-none transition-all" placeholder="Search orders, products, customers..." type="text"/>
+        </div>
+    </div>
+    <div class="flex items-center gap-4">
+        <button class="p-2 rounded-full hover:bg-surface-variant transition-colors text-on-surface-variant focus:ring-2 focus:ring-primary">
+            <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+        </button>
+        <button class="p-2 rounded-full hover:bg-surface-variant transition-colors text-on-surface-variant focus:ring-2 focus:ring-primary">
+            <span class="material-symbols-outlined" data-icon="settings">settings</span>
+        </button>
+        <button class="p-2 rounded-full hover:bg-surface-variant transition-colors text-on-surface-variant focus:ring-2 focus:ring-primary">
+            <span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+        </button>
+    </div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 mt-1 p-gutter min-h-[calc(100vh-4rem)] max-w-full overflow-x-hidden">
+    <div class="max-w-container-max mx-auto">
+        <!-- Page Header -->
+        <div class="flex justify-between items-end mb-8">
+            <div>
+                <h2 class="font-h2 text-h2 text-on-surface mb-2">Product Management</h2>
+                <p class="font-body-md text-body-md text-secondary">Manage your inventory, pricing, and product visibility across all platforms.</p>
+            </div>
+            <button class="bg-primary-container text-on-primary px-6 py-3 rounded-lg font-spec-label text-spec-label flex items-center gap-2 hover:opacity-90 shadow-md transition-all active:scale-95">
+                <span class="material-symbols-outlined">add</span>
+                Add New Product
+            </button>
+        </div>
+        <!-- Table Container -->
+        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm overflow-hidden">
+            <!-- Filters & Search Bar -->
+            <div class="p-gutter border-b border-outline-variant flex flex-col md:flex-row gap-gutter justify-between items-center bg-surface-bright">
+                <div class="flex items-center gap-3 w-full md:w-auto">
+                    <div class="relative w-full md:w-80">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+                        <input class="w-full bg-surface border border-outline-variant rounded-lg py-2 pl-9 pr-4 text-spec-value font-spec-value focus:ring-2 focus:ring-primary outline-none" placeholder="Search product ID, name, brand..." type="text"/>
+                    </div>
+                    <button class="bg-surface border border-outline-variant p-2 rounded-lg text-on-surface hover:bg-surface-variant transition-colors">
+                        <span class="material-symbols-outlined">filter_list</span>
+                    </button>
+                </div>
+                <div class="flex items-center gap-4 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
+                    <select class="bg-surface border border-outline-variant rounded-lg py-2 px-4 text-spec-value font-spec-value focus:ring-2 focus:ring-primary outline-none min-w-[140px]">
+                        <option>All Categories</option>
+                        <option>Laptops</option>
+                        <option>Smartphones</option>
+                        <option>Audio</option>
+                        <option>Accessories</option>
+                    </select>
+                    <select class="bg-surface border border-outline-variant rounded-lg py-2 px-4 text-spec-value font-spec-value focus:ring-2 focus:ring-primary outline-none min-w-[140px]">
+                        <option>All Statuses</option>
+                        <option>In Stock</option>
+                        <option>Low Stock</option>
+                        <option>Out of Stock</option>
+                        <option>Draft</option>
+                    </select>
+                    <button class="flex items-center gap-2 text-secondary hover:text-primary font-spec-label text-spec-label px-2 transition-colors">
+                        <span class="material-symbols-outlined text-sm">file_download</span>
+                        Export
+                    </button>
+                </div>
+            </div>
+            <!-- Table Content -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                    <tr class="bg-surface-container border-b border-outline-variant">
+                        <th class="px-gutter py-4 font-spec-label text-spec-label text-secondary uppercase tracking-wider">Product Image</th>
+                        <th class="px-gutter py-4 font-spec-label text-spec-label text-secondary uppercase tracking-wider">Name</th>
+                        <th class="px-gutter py-4 font-spec-label text-spec-label text-secondary uppercase tracking-wider">Category</th>
+                        <th class="px-gutter py-4 font-spec-label text-spec-label text-secondary uppercase tracking-wider">Brand</th>
+                        <th class="px-gutter py-4 font-spec-label text-spec-label text-secondary uppercase tracking-wider">Price</th>
+                        <th class="px-gutter py-4 font-spec-label text-spec-label text-secondary uppercase tracking-wider">Stock</th>
+                        <th class="px-gutter py-4 font-spec-label text-spec-label text-secondary uppercase tracking-wider">Status</th>
+                        <th class="px-gutter py-4 font-spec-label text-spec-label text-secondary uppercase tracking-wider text-right">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody class="divide-y divide-outline-variant">
+                    <!-- Row 1 -->
+                    <tr class="hover:bg-surface-container-low transition-colors group">
+                        <td class="px-gutter py-4">
+                            <div class="w-16 h-16 bg-white rounded-lg border border-outline-variant overflow-hidden p-1 flex items-center justify-center">
+                                <img alt="MacBook Pro M3" class="max-w-full max-h-full object-contain" data-alt="A sleek MacBook Pro laptop centered on a pure white background. The image is professionally shot with soft global illumination, emphasizing the premium aluminum texture and clean lines. High-contrast lighting highlights the edge of the device, conveying a sense of high-performance tech retail and precision engineering." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXDHSOqHdCUkzWVzvhWvR_rjSne_FdzDGOCDI-q7_zydVDTQeIfcAly0HnNZ753iU5TbspZXeEbmREi0IE0La1GEexJm0YRVsOFiI1-fw5UKrivBX7RhBsFwaYjTJ4hnJyb7EtfekK9Hv8ltke_0c-a9-9Y7mdLUuXvyPR68igdeUCaLNu7Gn-5AdSRYrQAsLnLWTxiGAxvOTr3WZi3Hi9GgDuuhxMw4-zvzE5iK01rMqn3p5Uk3f5xBk-p3YwXzc1GQIAQmmNPpNb"/>
+                            </div>
+                        </td>
+                        <td class="px-gutter py-4">
+                            <div class="flex flex-col">
+                                <span class="font-spec-label text-spec-label text-on-surface">MacBook Pro M3</span>
+                                <span class="text-[12px] text-secondary">SKU: MB-M3-14-512-SG</span>
+                            </div>
+                        </td>
+                        <td class="px-gutter py-4 font-spec-value text-spec-value text-on-surface">Laptops</td>
+                        <td class="px-gutter py-4 font-spec-value text-spec-value text-on-surface">Apple</td>
+                        <td class="px-gutter py-4 font-spec-value text-spec-value text-primary font-bold">$1,599.00</td>
+                        <td class="px-gutter py-4 font-spec-value text-spec-value text-on-surface">42 units</td>
+                        <td class="px-gutter py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[12px] font-bold bg-green-100 text-green-800 uppercase">
+                                        In Stock
+                                    </span>
+                        </td>
+                        <td class="px-gutter py-4 text-right">
+                            <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button class="p-2 text-secondary hover:text-primary hover:bg-primary-fixed rounded-lg transition-all">
+                                    <span class="material-symbols-outlined">edit</span>
+                                </button>
+                                <button class="p-2 text-secondary hover:text-error hover:bg-error-container rounded-lg transition-all">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Row 2 -->
+                    <tr class="hover:bg-surface-container-low transition-colors group">
+                        <td class="px-gutter py-4">
+                            <div class="w-16 h-16 bg-white rounded-lg border border-outline-variant overflow-hidden p-1 flex items-center justify-center">
+                                <img alt="Samsung S24 Ultra" class="max-w-full max-h-full object-contain" data-alt="A Samsung Galaxy S24 Ultra smartphone in Titanium Gray, presented against a minimalist white backdrop. The studio lighting is bright and even, accentuating the device's titanium frame and quad-camera array. The mood is modern and authoritative, capturing the premium quality of flagship electronics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoLctis_3q7nR3YxcEFIeKWEM-sr4bUv6AukaGBii3CHnMAFWjGLdofMUOftvIdops7gv-BNu3R14ruBcAojbDYLrGXWJMJfgGCVwmpfI18_vZST2Yc1yZSIGxe_TRk5R_nfmjKiKb4raGKu0aZ1OAtx8D4HYM9qjJQdpXJVjnP1fWQa-bGRam86Ct6UeuzuW3Jq-BBBuu17Djk5EyqI8NoUNM4OxDU_q5W7ZW_bG_JL_TAfdMxNiBHM6SSN6ulMAN0FTXS30RVDNW"/>
+                            </div>
+                        </td>
+                        <td class="px-gutter py-4">
+                            <div class="flex flex-col">
+                                <span class="font-spec-label text-spec-label text-on-surface">Galaxy S24 Ultra</span>
+                                <span class="text-[12px] text-secondary">SKU: SS-S24U-256-TG</span>
+                            </div>
+                        </td>
+                        <td class="px-gutter py-4 font-spec-value text-spec-value text-on-surface">Smartphones</td>
+                        <td class="px-gutter py-4 font-spec-value text-spec-value text-on-surface">Samsung</td>
+                        <td class="px-gutter py-4 font-spec-value text-spec-value text-primary font-bold">$1,299.00</td>
+                        <td class="px-gutter py-4 font-spec-value text-spec-value text-on-surface">8 units</td>
+                        <td class="px-gutter py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[12px] font-bold bg-yellow-100 text-yellow-800 uppercase">
+                                        Low Stock
+                                    </span>
+                        </td>
+                        <td class="px-gutter py-4 text-right">
+                            <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button class="p-2 text-secondary hover:text-primary hover:bg-primary-fixed rounded-lg transition-all">
+                                    <span class="material-symbols-outlined">edit</span>
+                                </button>
+                                <button class="p-2 text-secondary hover:text-error hover:bg-error-container rounded-lg transition-all">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Row 3 -->
+                    <tr class="hover:bg-surface-container-low transition-colors group">
+                        <td class="px-gutter py-4">
+                            <div class="w-16 h-16 bg-white rounded-lg border border-outline-variant overflow-hidden p-1 flex items-center justify-center">
+                                <img alt="Sony WH-1000XM5" class="max-w-full max-h-full object-contain" data-alt="Premium Sony noise-canceling headphones in matte black, shot in a minimalist studio setting. The lighting is focused and dramatic, highlighting the sleek, matte finish and soft leather ear cushions. The image reflects an authoritative, technical brand style with deep blacks and high-contrast accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDR_xOergoPl-pzea1hPuBmdNyj-zeWYAd95UuNyMZ6OQG6MMvpq4dhQ_vwsh0Gv4bp-IMC9VWsW1wxEPTPmaLmLnHhtEsl7llvacZSh7OCY1AYJ89TG9rOX9aNAFImzYUjw6KeP74h8-gkkAqTgQSlKV1_tzxzwpL_URDsqEslrAAZGeql_shBa9i8QewDl5zKfBDLNk1pvHg2LXh51STAzRt2utzresf6Ac-Hv-4WtfmTuzv7qAiONZW3oKI_tMuHOXJeII0r_btb"/>
+                            </div>
+                        </td>
+                        <td class="px-gutter py-4">
+                            <div class="flex flex-col">
+                                <span class="font-spec-label text-spec-label text-on-surface">Sony WH-1000XM5</span>
+                                <span class="text-[12px] text-secondary">SKU: SN-XM5-BLK</span>
+                            </div>
+                        </td>
+                        <td class="px-gutter py-4 font-spec-value text-spec-value text-on-surface">Audio</td>
+                        <td class="px-gutter py-4 font-spec-value text-spec-value text-on-surface">Sony</td>
+                        <td class="px-gutter py-4 font-spec-value text-spec-value text-primary font-bold">$348.00</td>
+                        <td class="px-gutter py-4 font-spec-value text-spec-value text-on-surface">120 units</td>
+                        <td class="px-gutter py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[12px] font-bold bg-green-100 text-green-800 uppercase">
+                                        In Stock
+                                    </span>
+                        </td>
+                        <td class="px-gutter py-4 text-right">
+                            <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button class="p-2 text-secondary hover:text-primary hover:bg-primary-fixed rounded-lg transition-all">
+                                    <span class="material-symbols-outlined">edit</span>
+                                </button>
+                                <button class="p-2 text-secondary hover:text-error hover:bg-error-container rounded-lg transition-all">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Row 4 -->
+                    <tr class="hover:bg-surface-container-low transition-colors group">
+                        <td class="px-gutter py-4">
+                            <div class="w-16 h-16 bg-white rounded-lg border border-outline-variant overflow-hidden p-1 flex items-center justify-center">
+                                <img alt="iPad Pro 12.9" class="max-w-full max-h-full object-contain" data-alt="An Apple iPad Pro 12.9-inch displayed with its liquid retina screen, set against a sterile, high-key white background. The photo uses crisp, professional lighting to showcase the ultra-thin form factor and expansive display. The mood is precise and reliable, emphasizing the product as a professional-grade tech gadget." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyXdo9FUMaULkfBQS90AlKEb_36vnZ-ANG9t5BZwC7lZB0JWjTHTGudMUZv4y9r-o4SiNZDAXkKvio4NieDiqaO1k0ereAaXBmIMSGNzIaKpZUczLuud8MNWiVR6oOq5UtnzUfV6mZGfZwNwqfRHSyhJSQsaXf0EJoNGBJSKkh8jxSUPchaLo2EfPLic_IzKia6lgEyLCLguo-X5jwdpKg8sXve7YFO8eSqEwzkskLkD1w27rejSzeCyQR7KTfgtP396HFxfbkm2eQ"/>
+                            </div>
+                        </td>
+                        <td class="px-gutter py-4">
+                            <div class="flex flex-col">
+                                <span class="font-spec-label text-spec-label text-on-surface">iPad Pro 12.9"</span>
+                                <span class="text-[12px] text-secondary">SKU: AP-IPAD-129-SG</span>
+                            </div>
+                        </td>
+                        <td class="px-gutter py-4 font-spec-value text-spec-value text-on-surface">Tablets</td>
+                        <td class="px-gutter py-4 font-spec-value text-spec-value text-on-surface">Apple</td>
+                        <td class="px-gutter py-4 font-spec-value text-spec-value text-primary font-bold">$1,099.00</td>
+                        <td class="px-gutter py-4 font-spec-value text-spec-value text-on-surface">0 units</td>
+                        <td class="px-gutter py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[12px] font-bold bg-red-100 text-red-800 uppercase">
+                                        Out of Stock
+                                    </span>
+                        </td>
+                        <td class="px-gutter py-4 text-right">
+                            <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button class="p-2 text-secondary hover:text-primary hover:bg-primary-fixed rounded-lg transition-all">
+                                    <span class="material-symbols-outlined">edit</span>
+                                </button>
+                                <button class="p-2 text-secondary hover:text-error hover:bg-error-container rounded-lg transition-all">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="p-gutter border-t border-outline-variant flex justify-between items-center bg-surface-bright">
+                <span class="text-caption font-caption text-secondary">Showing 1 to 4 of 1,284 entries</span>
+                <div class="flex items-center gap-2">
+                    <button class="p-2 border border-outline-variant rounded-lg text-secondary hover:bg-surface-variant disabled:opacity-50" disabled="">
+                        <span class="material-symbols-outlined">chevron_left</span>
+                    </button>
+                    <button class="w-10 h-10 bg-primary-container text-on-primary rounded-lg font-spec-label text-spec-label">1</button>
+                    <button class="w-10 h-10 text-on-surface hover:bg-surface-variant rounded-lg font-spec-label text-spec-label transition-colors">2</button>
+                    <button class="w-10 h-10 text-on-surface hover:bg-surface-variant rounded-lg font-spec-label text-spec-label transition-colors">3</button>
+                    <span class="px-2 text-secondary">...</span>
+                    <button class="w-10 h-10 text-on-surface hover:bg-surface-variant rounded-lg font-spec-label text-spec-label transition-colors">321</button>
+                    <button class="p-2 border border-outline-variant rounded-lg text-secondary hover:bg-surface-variant">
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body></html>
