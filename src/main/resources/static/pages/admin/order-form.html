@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Cập nhật đơn hàng | TechStore Admin</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="/css/admin.css"/>
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#f6faff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#ecf5fe",
+                        "surface-container": "#e6eff8",
+                        "surface-bright": "#f6faff",
+                        "on-surface": "#141d23",
+                        "on-surface-variant": "#5b403f",
+                        "primary": "#98001b",
+                        "primary-container": "#be1e2d",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#ffd3d1",
+                        "secondary": "#5e5e5e",
+                        "outline": "#8f6f6e",
+                        "outline-variant": "#e3bebb",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6"
+                    },
+                    spacing: {
+                        "gutter": "24px",
+                        "base": "8px",
+                        "container-max": "1280px"
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+
+<body class="bg-surface text-on-surface overflow-x-hidden">
+
+<div id="admin-sidebar"></div>
+<div id="admin-topbar"></div>
+
+<main class="ml-64 mt-1 p-5 min-h-[calc(100vh-4rem)] max-w-full overflow-x-hidden">
+    <div class="max-w-4xl">
+
+        <div class="flex justify-between items-center mb-6">
+            <div>
+                <h2 class="text-2xl font-bold text-on-surface mb-1" id="page-title">
+                    Cập nhật đơn hàng
+                </h2>
+
+                <nav class="flex text-[12px] font-medium text-slate-500 mt-1">
+                    <span>Đơn hàng</span>
+                    <span class="mx-2">/</span>
+                    <span class="text-primary font-bold" id="breadcrumb-current">Cập nhật</span>
+                </nav>
+            </div>
+
+            <div class="flex gap-3">
+                <a id="btnBack"
+                   class="px-4 py-2 border border-slate-300 rounded-lg text-slate-600 font-semibold text-[13px] hover:bg-slate-50 transition-all flex items-center"
+                   href="/pages/admin/order-management.html">
+                    Quay lại
+                </a>
+
+                <button class="px-4 py-2 bg-primary-container text-on-primary rounded-lg font-semibold text-[13px] shadow-md hover:opacity-90 transition-all flex items-center gap-1.5"
+                        id="submit-btn"
+                        type="submit"
+                        form="order-form">
+                    <span class="material-symbols-outlined text-[18px]">save</span>
+                    <span id="submit-text">Cập nhật đơn</span>
+                </button>
+            </div>
+        </div>
+
+        <form class="space-y-5" id="order-form">
+
+            <section class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant shadow-sm">
+                <h3 class="text-base font-bold mb-5 flex items-center gap-2 border-b pb-3">
+                    <span class="material-symbols-outlined text-primary text-[20px]">local_shipping</span>
+                    Trạng thái xử lý
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block font-semibold text-[13px] text-on-surface mb-1.5">
+                            Trạng thái đơn hàng
+                        </label>
+
+                        <select id="status"
+                                name="status"
+                                class="w-full border border-outline rounded-lg p-2.5 text-[13px] focus:ring-2 focus:ring-primary-container outline-none"
+                                required>
+                            <option value="PENDING">Chờ xác nhận</option>
+                            <option value="CONFIRMED">Đã xác nhận</option>
+                            <option value="SHIPPING">Đang giao hàng</option>
+                            <option value="COMPLETED">Hoàn thành</option>
+                            <option value="CANCELLED">Đã hủy</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-[13px] text-on-surface mb-1.5">
+                            Trạng thái thanh toán
+                        </label>
+
+                        <select id="paymentStatus"
+                                name="paymentStatus"
+                                class="w-full border border-outline rounded-lg p-2.5 text-[13px] focus:ring-2 focus:ring-primary-container outline-none"
+                                required>
+                            <option value="UNPAID">Chưa thanh toán</option>
+                            <option value="PAID">Đã thanh toán</option>
+                            <option value="FAILED">Thanh toán lỗi</option>
+                            <option value="REFUNDED">Đã hoàn tiền</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant shadow-sm">
+                <h3 class="text-base font-bold mb-5 flex items-center gap-2 border-b pb-3">
+                    <span class="material-symbols-outlined text-primary text-[20px]">person</span>
+                    Thông tin người nhận
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block font-semibold text-[13px] text-on-surface mb-1.5">
+                            Tên người nhận
+                        </label>
+
+                        <input id="customerName"
+                               name="customerName"
+                               class="w-full border border-outline rounded-lg p-2.5 text-[13px] focus:ring-2 focus:ring-primary-container outline-none transition-all"
+                               required
+                               type="text"/>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-[13px] text-on-surface mb-1.5">
+                            Số điện thoại
+                        </label>
+
+                        <input id="phone"
+                               name="phone"
+                               class="w-full border border-outline rounded-lg p-2.5 text-[13px] focus:ring-2 focus:ring-primary-container outline-none transition-all"
+                               required
+                               type="text"/>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-[13px] text-on-surface mb-1.5">
+                            Tỉnh/Thành phố
+                        </label>
+
+                        <input id="province"
+                               name="province"
+                               class="w-full border border-outline rounded-lg p-2.5 text-[13px] focus:ring-2 focus:ring-primary-container outline-none transition-all"
+                               type="text"/>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-[13px] text-on-surface mb-1.5">
+                            Quận/Huyện
+                        </label>
+
+                        <input id="district"
+                               name="district"
+                               class="w-full border border-outline rounded-lg p-2.5 text-[13px] focus:ring-2 focus:ring-primary-container outline-none transition-all"
+                               type="text"/>
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label class="block font-semibold text-[13px] text-on-surface mb-1.5">
+                            Địa chỉ
+                        </label>
+
+                        <input id="address"
+                               name="address"
+                               class="w-full border border-outline rounded-lg p-2.5 text-[13px] focus:ring-2 focus:ring-primary-container outline-none transition-all"
+                               required
+                               type="text"/>
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label class="block font-semibold text-[13px] text-on-surface mb-1.5">
+                            Ghi chú
+                        </label>
+
+                        <textarea id="note"
+                                  name="note"
+                                  class="w-full border border-outline rounded-lg p-2.5 text-[13px] focus:ring-2 focus:ring-primary-container outline-none transition-all"
+                                  rows="3"></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant shadow-sm">
+                <h3 class="text-base font-bold mb-5 flex items-center gap-2 border-b pb-3">
+                    <span class="material-symbols-outlined text-primary text-[20px]">receipt_long</span>
+                    Thông tin thanh toán
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-sm">
+                    <div>
+                        <p class="text-[11px] font-semibold text-secondary mb-1">Tạm tính</p>
+                        <p class="font-bold text-on-surface" id="subtotalText">0 ₫</p>
+                    </div>
+
+                    <div>
+                        <p class="text-[11px] font-semibold text-secondary mb-1">Phí vận chuyển</p>
+                        <p class="font-bold text-on-surface" id="shippingFeeText">0 ₫</p>
+                    </div>
+
+                    <div>
+                        <p class="text-[11px] font-semibold text-secondary mb-1">Giảm giá</p>
+                        <p class="font-bold text-on-surface" id="discountAmountText">0 ₫</p>
+                    </div>
+
+                    <div>
+                        <p class="text-[11px] font-semibold text-secondary mb-1">Tổng tiền</p>
+                        <p class="font-bold text-primary text-lg" id="totalAmountText">0 ₫</p>
+                    </div>
+                </div>
+            </section>
+
+        </form>
+
+    </div>
+</main>
+
+<script type="module" src="/js/admin/pages/order-form.js"></script>
+
+</body>
+</html>

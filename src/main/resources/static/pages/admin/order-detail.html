@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <title>Danh mục | TechStore Admin</title>
+    <title>Chi tiết đơn hàng | TechStore Admin</title>
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
@@ -56,71 +56,46 @@
 <div id="admin-topbar"></div>
 
 <main class="ml-64 mt-1 p-5 min-h-[calc(100vh-4rem)] max-w-full overflow-x-hidden">
-    <div class="max-w-3xl">
+    <div class="max-w-container-max mx-auto">
 
         <div class="flex justify-between items-center mb-6">
             <div>
                 <h2 class="text-2xl font-bold text-on-surface mb-1" id="page-title">
-                    Thêm danh mục
+                    Chi tiết đơn hàng
                 </h2>
 
                 <nav class="flex text-[12px] font-medium text-slate-500 mt-1">
-                    <span>Danh mục</span>
+                    <span>Đơn hàng</span>
                     <span class="mx-2">/</span>
-                    <span class="text-primary font-bold" id="breadcrumb-current">Thêm mới</span>
+                    <span class="text-primary font-bold" id="breadcrumb-current">Chi tiết</span>
                 </nav>
             </div>
 
             <div class="flex gap-3">
                 <a class="px-4 py-2 border border-slate-300 rounded-lg text-slate-600 font-semibold text-[13px] hover:bg-slate-50 transition-all flex items-center"
-                   href="/pages/admin/category-management.html">
+                   href="/pages/admin/order-management.html">
                     Quay lại
                 </a>
 
-                <button class="px-4 py-2 bg-primary-container text-on-primary rounded-lg font-semibold text-[13px] shadow-md hover:opacity-90 transition-all flex items-center gap-1.5"
-                        id="submit-btn"
-                        type="submit"
-                        form="category-form">
-                    <span class="material-symbols-outlined text-[18px]">save</span>
-                    <span id="submit-text">Lưu danh mục</span>
-                </button>
+                <a id="btnUpdateOrder"
+                   class="px-4 py-2 bg-primary-container text-on-primary rounded-lg font-semibold text-[13px] shadow-md hover:opacity-90 transition-all flex items-center gap-1.5"
+                   href="#">
+                    <span class="material-symbols-outlined text-[18px]">edit</span>
+                    Cập nhật đơn
+                </a>
             </div>
         </div>
 
-        <form class="space-y-5" id="category-form">
-
-            <section class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant shadow-sm">
-                <h3 class="text-base font-bold mb-5 flex items-center gap-2 border-b pb-3">
-                    <span class="material-symbols-outlined text-primary text-[20px]">category</span>
-                    Thông tin danh mục
-                </h3>
-
-                <div class="grid grid-cols-1 gap-5">
-                    <div>
-                        <label class="block font-semibold text-[13px] text-on-surface mb-1.5">
-                            Tên danh mục
-                        </label>
-
-                        <input class="w-full border border-outline rounded-lg p-2.5 text-[13px] focus:ring-2 focus:ring-primary-container outline-none transition-all"
-                               id="category-name"
-                               name="categoryName"
-                               placeholder="Nhập tên danh mục..."
-                               required
-                               type="text"/>
-
-                        <p class="text-[11px] text-secondary mt-1">
-                            Ví dụ: Điện thoại, Laptop, Tablet, Tai nghe, Chuột, Bàn phím, Loa.
-                        </p>
-                    </div>
-                </div>
+        <div id="orderDetailContainer" class="space-y-5">
+            <section class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm">
+                <p class="text-sm text-secondary">Đang tải dữ liệu đơn hàng...</p>
             </section>
-
-        </form>
+        </div>
 
     </div>
 </main>
 
-<script type="module" src="/js/admin/pages/category-form.js"></script>
+<script type="module" src="/js/admin/pages/order-detail.js"></script>
 
 </body>
 </html>

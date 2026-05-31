@@ -53,7 +53,11 @@ function detectActivePage() {
         return "brands";
     }
 
-    if (path.includes("order-management")) {
+    if (
+        path.includes("order-management") ||
+        path.includes("order-detail") ||
+        path.includes("order-form")
+    ) {
         return "orders";
     }
 
