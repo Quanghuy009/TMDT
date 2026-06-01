@@ -9,6 +9,10 @@ export async function loadFragment(selector, url) {
     }
 
     element.innerHTML = await response.text();
+
+    if (selector === "#header") {
+        setupAccountLink();
+    }
 }
 
 export function activeHeaderMenu() {
@@ -41,4 +45,34 @@ export function activeHeaderMenu() {
             );
         }
     });
+}
+
+function setupAccountLink() {
+    const accountLink = document.getElementById("accountLink");
+
+    if (!accountLink) return;
+
+    const token = localStorage.getItem("token");
+    const userJson = localStorage.getItem("user");
+
+    if (!token) {
+        accountLink.href = "/pages/login.html";
+        return;
+    }
+
+    let role = null;
+
+    try {
+        const user = userJson ? JSON.parse(userJson) : null;
+        role = user?.role;
+    } catch (error) {
+        console.error("Không đọc được user trong localStorage:", error);
+    }
+
+    if (role === "ROLE_ADMIN" || role === "ADMIN") {
+        accountLink.href = "/pages/admin/dashboard.html";
+        return;
+    }
+
+    accountLink.href = "/pages/customer-account.html";
 }

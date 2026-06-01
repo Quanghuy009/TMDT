@@ -12,6 +12,22 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     List<Order> findByUserOrderByCreatedAtDesc(User user);
 
+    @EntityGraph(attributePaths = {
+            "user",
+            "items",
+            "items.product"
+    })
+    @Query("""
+        SELECT o
+        FROM Order o
+        WHERE o.id = :orderId
+          AND o.user = :user
+    """)
+    Optional<Order> findByIdAndUserWithItems(
+            @Param("orderId") Integer orderId,
+            @Param("user") User user
+    );
+
     @Query("""
         SELECT o
         FROM Order o
@@ -30,4 +46,6 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
         WHERE o.id = :id
     """)
     Optional<Order> findAdminOrderDetailById(@Param("id") Integer id);
+
+
 }

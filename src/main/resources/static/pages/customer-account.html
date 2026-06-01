@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tài khoản của tôi - TECH-STORE</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f6faff",
+                        "surface-dim": "#d2dbe4",
+                        "on-surface": "#141d23",
+                        "primary-container": "#be1e2d",
+                        "on-background": "#141d23",
+                        "surface-bright": "#f6faff",
+                        "on-primary-container": "#ffd3d1",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#8f6f6e",
+                        "inverse-primary": "#ffb3b0",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#e2e2e2",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#ffb3b0",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#1b1b1b",
+                        "secondary": "#5e5e5e",
+                        "secondary-container": "#e2e2e2",
+                        "on-tertiary-container": "#dcdedf",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#474747",
+                        "inverse-on-surface": "#e9f2fb",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#191c1d",
+                        "surface-container-highest": "#dbe4ed",
+                        "surface-variant": "#dbe4ed",
+                        "background": "#f6faff",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#484a4b",
+                        "tertiary-fixed-dim": "#c5c7c8",
+                        "surface-tint": "#b91a2a",
+                        "outline-variant": "#e3bebb",
+                        "surface-container-high": "#e0e9f2",
+                        "tertiary-container": "#5f6263",
+                        "inverse-surface": "#293138",
+                        "on-primary-fixed": "#410006",
+                        "on-primary-fixed-variant": "#930019",
+                        "tertiary-fixed": "#e1e3e4",
+                        "on-tertiary-fixed-variant": "#454748",
+                        "surface-container-low": "#ecf5fe",
+                        "on-surface-variant": "#5b403f",
+                        "secondary-fixed-dim": "#c6c6c6",
+                        "surface-container": "#e6eff8",
+                        "on-secondary-container": "#646464",
+                        "primary": "#98001b",
+                        "primary-fixed": "#ffdad8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "64px",
+                        "card-padding": "16px",
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "spec-label": ["Inter"],
+                        "spec-value": ["Inter"],
+                        "h3": ["Inter"],
+                        "h1": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "h2": ["Inter"],
+                        "caption": ["Inter"]
+                    },
+                    "fontSize": {
+                        "spec-label": ["14px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "spec-value": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h2": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "caption": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-surface text-on-surface font-body-md">
+
+<!-- Header sẽ được load vào đây -->
+<div id="header"></div>
+
+<main class="max-w-[1280px] mx-auto px-6 py-8">
+
+    <!-- Breadcrumb -->
+    <section class="mb-6">
+        <div class="flex items-center gap-2 text-sm text-gray-500">
+            <a href="/pages/index.html" class="hover:text-primary-container transition">
+                Trang chủ
+            </a>
+            <span class="material-symbols-outlined text-base">chevron_right</span>
+            <span class="font-semibold text-on-surface">Tài khoản của tôi</span>
+        </div>
+    </section>
+
+    <!-- Page title -->
+    <section class="mb-8">
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <p class="text-sm font-semibold text-primary-container uppercase tracking-wide">
+                        TECH-STORE
+                    </p>
+                    <h1 class="text-3xl md:text-4xl font-bold mt-2">
+                        Tài khoản của tôi
+                    </h1>
+                    <p class="text-gray-500 mt-2">
+                        Quản lý thông tin cá nhân và theo dõi các đơn hàng đã đặt.
+                    </p>
+                </div>
+
+                <button
+                        id="logoutBtn"
+                        class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-red-200 text-primary-container font-semibold hover:bg-red-50 transition"
+                        type="button"
+                >
+                    <span class="material-symbols-outlined text-xl">logout</span>
+                    Đăng xuất
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main account content -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Left: profile card -->
+        <aside class="lg:col-span-4 space-y-6">
+
+            <!-- User summary -->
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center">
+                        <span class="material-symbols-outlined text-4xl text-primary-container">
+                            account_circle
+                        </span>
+                    </div>
+
+                    <div class="min-w-0">
+                        <h2
+                                id="profileFullNameText"
+                                class="text-xl font-bold truncate"
+                        >
+                            Đang tải...
+                        </h2>
+                        <p
+                                id="profileEmailText"
+                                class="text-sm text-gray-500 truncate"
+                        >
+                            Đang tải email...
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-6 grid grid-cols-2 gap-3">
+                    <div class="rounded-xl bg-surface-container-low p-4">
+                        <p class="text-xs text-gray-500">Trạng thái</p>
+                        <p
+                                id="profileStatusText"
+                                class="mt-1 font-semibold text-green-600"
+                        >
+                            Đang hoạt động
+                        </p>
+                    </div>
+
+                    <div class="rounded-xl bg-surface-container-low p-4">
+                        <p class="text-xs text-gray-500">Vai trò</p>
+                        <p class="mt-1 font-semibold">
+                            Khách hàng
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile form -->
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary-container">
+                            badge
+                        </span>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold">Hồ sơ cá nhân</h2>
+                        <p class="text-sm text-gray-500">
+                            Cập nhật họ tên của bạn
+                        </p>
+                    </div>
+                </div>
+
+                <form id="profileForm" class="space-y-5">
+                    <div>
+                        <label
+                                for="fullNameInput"
+                                class="block text-sm font-semibold text-gray-700 mb-2"
+                        >
+                            Họ và tên
+                        </label>
+                        <input
+                                id="fullNameInput"
+                                name="fullName"
+                                type="text"
+                                placeholder="Nhập họ và tên"
+                                class="w-full rounded-xl border-gray-200 bg-gray-50 focus:border-primary-container focus:ring-primary-container"
+                        >
+                    </div>
+
+                    <div>
+                        <label
+                                for="emailInput"
+                                class="block text-sm font-semibold text-gray-700 mb-2"
+                        >
+                            Email
+                        </label>
+                        <input
+                                id="emailInput"
+                                name="email"
+                                type="email"
+                                disabled
+                                class="w-full rounded-xl border-gray-200 bg-gray-100 text-gray-500 cursor-not-allowed"
+                        >
+                        <p class="text-xs text-gray-500 mt-2">
+                            Email dùng để đăng nhập nên tạm thời không cho chỉnh sửa.
+                        </p>
+                    </div>
+
+                    <div
+                            id="profileMessage"
+                            class="hidden rounded-xl px-4 py-3 text-sm font-medium"
+                    ></div>
+
+                    <button
+                            type="submit"
+                            class="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-primary-container text-white font-semibold hover:bg-primary transition"
+                    >
+                        <span class="material-symbols-outlined text-xl">save</span>
+                        Cập nhật thông tin
+                    </button>
+                </form>
+            </div>
+        </aside>
+
+        <!-- Right: orders -->
+        <section class="lg:col-span-8">
+
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+
+                <!-- Orders header -->
+                <div class="p-6 border-b border-gray-100">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                        <div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-primary-container">
+                                        receipt_long
+                                    </span>
+                                </div>
+                                <div>
+                                    <h2 class="text-2xl font-bold">Đơn hàng của tôi</h2>
+                                    <p class="text-sm text-gray-500">
+                                        Theo dõi danh sách đơn hàng đã đặt
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-gray-400">
+                                inventory_2
+                            </span>
+                            <span id="orderCountText" class="text-sm font-semibold text-gray-600">
+                                0 đơn hàng
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loading -->
+                <div id="ordersLoading" class="p-6 space-y-4">
+                    <div class="animate-pulse h-20 bg-gray-100 rounded-xl"></div>
+                    <div class="animate-pulse h-20 bg-gray-100 rounded-xl"></div>
+                    <div class="animate-pulse h-20 bg-gray-100 rounded-xl"></div>
+                </div>
+
+                <!-- Empty state -->
+                <div id="ordersEmpty" class="hidden p-10 text-center">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-surface-container flex items-center justify-center">
+                        <span class="material-symbols-outlined text-4xl text-gray-400">
+                            shopping_bag
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold mt-4">Bạn chưa có đơn hàng nào</h3>
+                    <p class="text-gray-500 mt-2">
+                        Khi bạn đặt hàng thành công, đơn hàng sẽ hiển thị tại đây.
+                    </p>
+                    <a
+                            href="/pages/index.html"
+                            class="inline-flex items-center justify-center gap-2 mt-6 px-5 py-3 rounded-xl bg-primary-container text-white font-semibold hover:bg-primary transition"
+                    >
+                        <span class="material-symbols-outlined text-xl">storefront</span>
+                        Mua sắm ngay
+                    </a>
+                </div>
+
+                <!-- Desktop table -->
+                <div id="ordersTableWrapper" class="hidden overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-surface-container-low">
+                        <tr class="text-left text-sm text-gray-600">
+                            <th class="px-6 py-4 font-semibold">Mã đơn</th>
+                            <th class="px-6 py-4 font-semibold">Ngày đặt</th>
+                            <th class="px-6 py-4 font-semibold">Tổng tiền</th>
+                            <th class="px-6 py-4 font-semibold">Trạng thái</th>
+                            <th class="px-6 py-4 font-semibold text-right">Thao tác</th>
+                        </tr>
+                        </thead>
+
+                        <tbody id="ordersTableBody" class="divide-y divide-gray-100">
+                        <!-- Render bằng customer-account.js -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Mobile cards -->
+                <div id="ordersMobileList" class="hidden p-4 space-y-4 md:hidden">
+                    <!-- Render bằng customer-account.js -->
+                </div>
+
+            </div>
+        </section>
+    </section>
+</main>
+
+<!-- Footer sẽ được load vào đây -->
+<div id="footer"></div>
+
+<script type="module" src="../js/pages/customer-account.js"></script>
+</body>
+</html>

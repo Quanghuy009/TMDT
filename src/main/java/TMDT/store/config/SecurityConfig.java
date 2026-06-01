@@ -73,12 +73,16 @@ public class SecurityConfig {
                         .permitAll()
 
                         // User APIs
-                        .requestMatchers("/api/cart/**")
-                        .hasAnyRole("USER", "ADMIN")
+                        //.requestMatchers("/api/cart/**","/api/customer/**")hasAnyRole("USER", "ADMIN")
 
-                        .requestMatchers("/api/orders/**")
-                        .hasAnyRole("USER", "ADMIN")
-
+                        //.requestMatchers("/api/orders/**").hasAnyRole("USER", "ADMIN")
+// User APIs
+                                .requestMatchers(
+                                        "/api/cart/**",
+                                        "/api/customer/**",
+                                        "/api/orders/**"
+                                )
+                                .authenticated()
                         // Others
                         .anyRequest().authenticated()
                 )

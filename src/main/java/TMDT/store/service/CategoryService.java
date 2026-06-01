@@ -14,4 +14,5 @@ public interface CategoryService {
     AdminCategoryResponse updateCategory(Integer id, AdminCategoryRequest request);
 
     void deleteCategory(Integer id);
+
 }
