@@ -11,9 +11,17 @@ import TMDT.store.service.AdminProductService;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class AdminProductServiceImpl implements AdminProductService {
@@ -21,6 +29,22 @@ public class AdminProductServiceImpl implements AdminProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
     private final BrandRepository brandRepository;
+
+    private static final Set<String> ALLOWED_IMAGE_TYPES = Set.of(
+            "image/jpeg",
+            "image/png",
+            "image/webp"
+    );
+
+    /*
+     * Cách này phù hợp khi chạy demo trong IntelliJ.
+     * Nếu deploy bằng file .jar, nên đổi sang thư mục ngoài project:
+     * Paths.get(System.getProperty("user.dir"), "uploads/products")
+     */
+    private final Path productImageUploadDir = Paths.get(
+            System.getProperty("user.dir"),
+            "src/main/resources/static/images/products"
+    );
 
     public AdminProductServiceImpl(
             ProductRepository productRepository,
@@ -45,15 +69,24 @@ public class AdminProductServiceImpl implements AdminProductService {
 
     @Override
     @Transactional
-    public AdminProductDetailResponse createProduct(AdminProductRequest request) {
+    public AdminProductDetailResponse createProduct(
+            AdminProductRequest request,
+            MultipartFile imageFile
+    ) {
         Category category = getCategoryOrThrow(request.getCategoryId());
         Brand brand = getBrandOrThrow(request.getBrandId());
+
+        String imageName = saveProductImage(imageFile);
+
+        if (imageName == null) {
+            imageName = "default.jpg";
+        }
 
         Product product = Product.builder()
                 .name(request.getName())
                 .price(request.getPrice())
                 .quantity(request.getQuantity() == null ? 0 : request.getQuantity())
-                .image(normalizeImage(request.getImage()))
+                .image(imageName)
                 .category(category)
                 .brand(brand)
                 .build();
@@ -67,16 +100,31 @@ public class AdminProductServiceImpl implements AdminProductService {
 
     @Override
     @Transactional
-    public AdminProductDetailResponse updateProduct(Integer id, AdminProductRequest request) {
+    public AdminProductDetailResponse updateProduct(
+            Integer id,
+            AdminProductRequest request,
+            MultipartFile imageFile
+    ) {
         Product product = getProductDetailOrThrow(id);
 
         Category category = getCategoryOrThrow(request.getCategoryId());
         Brand brand = getBrandOrThrow(request.getBrandId());
 
+        String oldImageName = product.getImage();
+        String newImageName = saveProductImage(imageFile);
+
         product.setName(request.getName());
         product.setPrice(request.getPrice());
         product.setQuantity(request.getQuantity() == null ? 0 : request.getQuantity());
-        product.setImage(normalizeImage(request.getImage()));
+
+        /*
+         * Nếu có upload ảnh mới thì đổi sang ảnh mới.
+         * Nếu không upload ảnh mới thì giữ nguyên ảnh cũ.
+         */
+        if (newImageName != null) {
+            product.setImage(newImageName);
+        }
+
         product.setCategory(category);
         product.setBrand(brand);
 
@@ -88,6 +136,14 @@ public class AdminProductServiceImpl implements AdminProductService {
         updateSpecs(product, request);
 
         Product savedProduct = productRepository.save(product);
+
+        /*
+         * Chỉ xóa ảnh cũ sau khi DB đã save thành công.
+         * Không xóa default.jpg.
+         */
+        if (newImageName != null) {
+            deleteProductImage(oldImageName);
+        }
 
         return toDetailResponse(savedProduct);
     }
@@ -101,7 +157,15 @@ public class AdminProductServiceImpl implements AdminProductService {
                         "Không tìm thấy sản phẩm"
                 ));
 
+        String oldImageName = product.getImage();
+
         productRepository.delete(product);
+
+        /*
+         * Khi xóa sản phẩm thì xóa luôn ảnh riêng của sản phẩm.
+         * Nếu ảnh là default.jpg thì không xóa.
+         */
+        deleteProductImage(oldImageName);
     }
 
     private Product getProductDetailOrThrow(Integer id) {
@@ -142,12 +206,81 @@ public class AdminProductServiceImpl implements AdminProductService {
                 ));
     }
 
-    private String normalizeImage(String image) {
-        if (image == null || image.trim().isEmpty()) {
+    private String saveProductImage(MultipartFile imageFile) {
+        if (imageFile == null || imageFile.isEmpty()) {
             return null;
         }
 
-        return image.trim();
+        String contentType = imageFile.getContentType();
+
+        if (contentType == null || !ALLOWED_IMAGE_TYPES.contains(contentType)) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Chỉ cho phép upload ảnh JPG, PNG hoặc WEBP"
+            );
+        }
+
+        try {
+            Files.createDirectories(productImageUploadDir);
+
+            String originalFilename = imageFile.getOriginalFilename();
+            String extension = getFileExtension(originalFilename);
+            String newFilename = UUID.randomUUID() + extension;
+
+            Path targetPath = productImageUploadDir.resolve(newFilename).normalize();
+
+            if (!targetPath.startsWith(productImageUploadDir)) {
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST,
+                        "Tên file ảnh không hợp lệ"
+                );
+            }
+
+            Files.copy(
+                    imageFile.getInputStream(),
+                    targetPath,
+                    StandardCopyOption.REPLACE_EXISTING
+            );
+
+            return newFilename;
+
+        } catch (IOException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Không thể lưu ảnh sản phẩm"
+            );
+        }
+    }
+
+    private void deleteProductImage(String filename) {
+        if (filename == null || filename.isBlank()) {
+            return;
+        }
+
+        if ("default.jpg".equalsIgnoreCase(filename)) {
+            return;
+        }
+
+        try {
+            Path imagePath = productImageUploadDir.resolve(filename).normalize();
+
+            if (!imagePath.startsWith(productImageUploadDir)) {
+                return;
+            }
+
+            Files.deleteIfExists(imagePath);
+
+        } catch (IOException e) {
+            System.err.println("Không thể xóa ảnh sản phẩm cũ: " + filename);
+        }
+    }
+
+    private String getFileExtension(String filename) {
+        if (filename == null || !filename.contains(".")) {
+            return ".jpg";
+        }
+
+        return filename.substring(filename.lastIndexOf(".")).toLowerCase();
     }
 
     /*

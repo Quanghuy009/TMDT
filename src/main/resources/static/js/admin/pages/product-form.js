@@ -50,8 +50,22 @@ function setupPageMode() {
 
 function bindEvents() {
     const form = document.getElementById("product-form");
+    const imageFileInput = document.getElementById("image-file");
+    const imagePreview = document.getElementById("image-preview");
 
     form?.addEventListener("submit", handleSubmit);
+
+    imageFileInput?.addEventListener("change", () => {
+        const file = imageFileInput.files[0];
+
+        if (!file) {
+            return;
+        }
+
+        if (imagePreview) {
+            imagePreview.src = URL.createObjectURL(file);
+        }
+    });
 }
 
 async function loadProductDetail(id) {
@@ -65,7 +79,6 @@ async function loadProductDetail(id) {
         alert("Không thể tải thông tin sản phẩm.");
     }
 }
-
 function fillProductForm(product) {
     setFieldValue("name", product.name);
     setFieldValue("price", product.price);
@@ -73,6 +86,14 @@ function fillProductForm(product) {
     setFieldValue("image", product.image);
     setFieldValue("categoryId", product.categoryId);
     setFieldValue("brandId", product.brandId);
+
+    const imagePreview = document.getElementById("image-preview");
+
+    if (imagePreview) {
+        imagePreview.src = product.image
+            ? `/images/products/${product.image}`
+            : "/images/default.jpg";
+    }
 
     handleCategoryChange();
 
@@ -106,13 +127,14 @@ async function handleSubmit(event) {
     event.preventDefault();
 
     const payload = buildProductPayload();
+    const imageFile = document.getElementById("image-file")?.files[0] || null;
 
     try {
         if (isEditMode) {
-            await updateAdminProduct(productId, payload);
+            await updateAdminProduct(productId, payload, imageFile);
             alert("Cập nhật sản phẩm thành công.");
         } else {
-            await createAdminProduct(payload);
+            await createAdminProduct(payload, imageFile);
             alert("Thêm sản phẩm thành công.");
         }
 

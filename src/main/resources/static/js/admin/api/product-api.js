@@ -1,5 +1,22 @@
 const PRODUCT_API_URL = "/api/admin/products";
 
+function buildProductFormData(payload, imageFile) {
+    const formData = new FormData();
+
+    formData.append(
+        "product",
+        new Blob([JSON.stringify(payload)], {
+            type: "application/json"
+        })
+    );
+
+    if (imageFile) {
+        formData.append("imageFile", imageFile);
+    }
+
+    return formData;
+}
+
 export async function getAdminProducts() {
     const response = await fetch(PRODUCT_API_URL);
 
@@ -20,29 +37,25 @@ export async function getAdminProductDetail(productId) {
     return await response.json();
 }
 
-export async function createAdminProduct(payload) {
+export async function createAdminProduct(payload, imageFile) {
     const response = await fetch(PRODUCT_API_URL, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
+        body: buildProductFormData(payload, imageFile)
     });
 
     if (!response.ok) {
-        throw new Error("Không thể thêm sản phẩm");
+        const errorText = await response.text();
+        console.error("Backend error:", errorText);
+        throw new Error(errorText || "Không thể thêm sản phẩm");
     }
 
     return await response.json();
 }
 
-export async function updateAdminProduct(id, data) {
-    const response = await fetch(`/api/admin/products/${id}`, {
+export async function updateAdminProduct(id, payload, imageFile) {
+    const response = await fetch(`${PRODUCT_API_URL}/${id}`, {
         method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
+        body: buildProductFormData(payload, imageFile)
     });
 
     if (!response.ok) {
@@ -60,6 +73,8 @@ export async function deleteAdminProduct(productId) {
     });
 
     if (!response.ok) {
-        throw new Error("Không thể xóa sản phẩm");
+        const errorText = await response.text();
+        console.error("Backend error:", errorText);
+        throw new Error(errorText || "Không thể xóa sản phẩm");
     }
 }
