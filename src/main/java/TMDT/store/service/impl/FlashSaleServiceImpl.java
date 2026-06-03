@@ -39,6 +39,10 @@ public class FlashSaleServiceImpl implements FlashSaleService {
         List<FlashSaleItem> items =
                 flashSaleItemRepository.findByFlashSaleId(flashSale.getId());
 
+        if (items.isEmpty()) {
+            return null;
+        }
+
         List<FlashSaleProductResponse> products = items.stream()
                 .map(this::toProductResponse)
                 .toList();

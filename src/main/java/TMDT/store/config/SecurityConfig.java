@@ -62,7 +62,8 @@ public class SecurityConfig {
                                 "/api/featured-products/**",
                                 "/api/recommended-products/**",
                                 "/api/best-seller/**",
-                                "/api/best-sellers/**"
+                                "/api/best-sellers/**",
+                                "/api/homepage-sections/**"
                         ).permitAll()
 
                         // Admin APIs

@@ -17,6 +17,8 @@ public interface FlashSaleItemRepository extends JpaRepository<FlashSaleItem, Lo
             Integer productId
     );
 
+    boolean existsByFlashSaleIdAndProductId(Long flashSaleId, Integer productId);
+
     @Query("""
         SELECT fsi
         FROM FlashSaleItem fsi

@@ -398,6 +398,326 @@
     </div>
 </main>
 
+<!-- FLASH SALE PROGRAM MODAL -->
+<div id="flashSaleProgramModal"
+     class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/40 px-4">
+
+    <div class="w-full max-w-xl rounded-2xl bg-white shadow-xl border border-outline-variant overflow-hidden">
+        <div class="px-6 py-4 border-b border-outline-variant flex items-center justify-between">
+            <div>
+                <h3 id="flashSaleProgramModalTitle" class="text-lg font-bold text-on-surface">
+                    Thêm chương trình Flash Sale
+                </h3>
+                <p class="text-xs text-secondary mt-1">
+                    Chỉ được có một chương trình Flash Sale active và chưa hết hạn tại một thời điểm.
+                </p>
+            </div>
+
+            <button id="btnCloseFlashSaleProgramModal"
+                    class="w-9 h-9 rounded-lg hover:bg-surface-container flex items-center justify-center">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+
+        <form id="flashSaleProgramForm" class="p-6 space-y-4">
+            <input type="hidden" id="flashSaleIdInput"/>
+
+            <div>
+                <label class="block text-xs font-semibold text-secondary mb-1">
+                    Tên chương trình
+                </label>
+                <input id="flashSaleNameInput"
+                       type="text"
+                       class="w-full rounded-lg border-outline-variant text-sm"
+                       placeholder="Ví dụ: Flash Sale cuối tuần"/>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-semibold text-secondary mb-1">
+                        Thời gian bắt đầu
+                    </label>
+                    <input id="flashSaleStartTimeInput"
+                           type="datetime-local"
+                           class="w-full rounded-lg border-outline-variant text-sm"/>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-secondary mb-1">
+                        Thời gian kết thúc
+                    </label>
+                    <input id="flashSaleEndTimeInput"
+                           type="datetime-local"
+                           class="w-full rounded-lg border-outline-variant text-sm"/>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-secondary mb-1">
+                    Priority
+                </label>
+                <input id="flashSalePriorityInput"
+                       type="number"
+                       min="0"
+                       value="0"
+                       class="w-full rounded-lg border-outline-variant text-sm"/>
+            </div>
+
+            <div class="flex items-center justify-between rounded-xl bg-surface-container px-4 py-3">
+                <div>
+                    <p class="text-sm font-semibold text-on-surface">Bật áp dụng Flash Sale</p>
+                    <p class="text-xs text-secondary">
+                        Nếu đang có chương trình khác active và chưa hết hạn, hệ thống sẽ không cho bật.
+                    </p>
+                </div>
+
+                <input id="flashSaleActiveInput"
+                       type="checkbox"
+                       class="rounded border-outline-variant text-primary-container focus:ring-primary-container"/>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-3">
+                <button type="button"
+                        id="btnCancelFlashSaleProgram"
+                        class="px-4 py-2 rounded-lg text-sm font-semibold bg-surface-container text-on-surface hover:opacity-90">
+                    Hủy
+                </button>
+
+                <button type="submit"
+                        class="px-4 py-2 rounded-lg text-sm font-semibold bg-primary-container text-on-primary hover:opacity-90">
+                    Lưu chương trình
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- FLASH SALE DETAIL MODAL -->
+<div id="flashSaleDetailModal"
+     class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/40 px-4">
+
+    <div class="w-full max-w-6xl max-h-[90vh] rounded-2xl bg-white shadow-xl border border-outline-variant overflow-hidden flex flex-col">
+        <div class="px-6 py-4 border-b border-outline-variant flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            <div>
+                <h3 id="flashSaleDetailTitle" class="text-lg font-bold text-on-surface">
+                    Chi tiết Flash Sale
+                </h3>
+                <p id="flashSaleDetailMeta" class="text-xs text-secondary mt-1">
+                    Đang tải dữ liệu...
+                </p>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button id="btnOpenAddFlashSaleItemModal"
+                        class="bg-primary-container text-on-primary px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 hover:opacity-90">
+                    <span class="material-symbols-outlined text-[18px]">add</span>
+                    Thêm sản phẩm
+                </button>
+
+                <button id="btnCloseFlashSaleDetailModal"
+                        class="w-9 h-9 rounded-lg hover:bg-surface-container flex items-center justify-center">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto flex-1">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                <tr class="bg-surface-container border-b border-outline-variant">
+                    <th class="px-gutter py-3 text-[11px] font-bold text-secondary uppercase tracking-wider">Sản phẩm</th>
+                    <th class="px-gutter py-3 text-[11px] font-bold text-secondary uppercase tracking-wider">Giá gốc</th>
+                    <th class="px-gutter py-3 text-[11px] font-bold text-secondary uppercase tracking-wider">Giá sale</th>
+                    <th class="px-gutter py-3 text-[11px] font-bold text-secondary uppercase tracking-wider">Giảm</th>
+                    <th class="px-gutter py-3 text-[11px] font-bold text-secondary uppercase tracking-wider">Giới hạn</th>
+                    <th class="px-gutter py-3 text-[11px] font-bold text-secondary uppercase tracking-wider">Đã bán</th>
+                    <th class="px-gutter py-3 text-[11px] font-bold text-secondary uppercase tracking-wider text-right">Thao tác</th>
+                </tr>
+                </thead>
+
+                <tbody id="flashSaleItemTableBody" class="divide-y divide-outline-variant">
+                <tr>
+                    <td colspan="7" class="px-gutter py-6 text-center text-xs text-secondary">
+                        Chưa có sản phẩm trong chương trình này.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- FLASH SALE ITEM MODAL -->
+<div id="flashSaleItemModal"
+     class="fixed inset-0 z-[120] hidden items-center justify-center bg-black/40 px-4">
+
+    <div class="w-full max-w-xl rounded-2xl bg-white shadow-xl border border-outline-variant overflow-hidden">
+        <div class="px-6 py-4 border-b border-outline-variant flex items-center justify-between">
+            <div>
+                <h3 id="flashSaleItemModalTitle" class="text-lg font-bold text-on-surface">
+                    Thêm sản phẩm vào Flash Sale
+                </h3>
+                <p class="text-xs text-secondary mt-1">
+                    Giá sale phải nhỏ hơn giá gốc sản phẩm.
+                </p>
+            </div>
+
+            <button id="btnCloseFlashSaleItemModal"
+                    class="w-9 h-9 rounded-lg hover:bg-surface-container flex items-center justify-center">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+
+        <form id="flashSaleItemForm" class="p-6 space-y-4">
+            <input type="hidden" id="flashSaleItemIdInput"/>
+            <input type="hidden" id="flashSaleItemFlashSaleIdInput"/>
+
+            <div>
+                <label class="block text-xs font-semibold text-secondary mb-1">
+                    Sản phẩm
+                </label>
+                <select id="flashSaleProductSelect"
+                        class="w-full rounded-lg border-outline-variant text-sm">
+                    <option value="">-- Chọn sản phẩm --</option>
+                </select>
+                <p id="selectedProductPriceText" class="text-xs text-secondary mt-1"></p>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-secondary mb-1">
+                    Giá sale
+                </label>
+                <input id="flashSaleItemSalePriceInput"
+                       type="number"
+                       min="0"
+                       step="1000"
+                       class="w-full rounded-lg border-outline-variant text-sm"
+                       placeholder="Ví dụ: 17990000"/>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-semibold text-secondary mb-1">
+                        Số lượng giới hạn
+                    </label>
+                    <input id="flashSaleItemQuantityLimitInput"
+                           type="number"
+                           min="0"
+                           value="0"
+                           class="w-full rounded-lg border-outline-variant text-sm"/>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-secondary mb-1">
+                        Đã bán
+                    </label>
+                    <input id="flashSaleItemSoldQuantityInput"
+                           type="number"
+                           min="0"
+                           value="0"
+                           class="w-full rounded-lg border-outline-variant text-sm"/>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-3">
+                <button type="button"
+                        id="btnCancelFlashSaleItem"
+                        class="px-4 py-2 rounded-lg text-sm font-semibold bg-surface-container text-on-surface hover:opacity-90">
+                    Hủy
+                </button>
+
+                <button type="submit"
+                        class="px-4 py-2 rounded-lg text-sm font-semibold bg-primary-container text-on-primary hover:opacity-90">
+                    Lưu sản phẩm
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- BANNER MODAL -->
+<div id="bannerModal"
+     class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/40 px-4">
+
+    <div class="w-full max-w-xl rounded-2xl bg-white shadow-xl border border-outline-variant overflow-hidden">
+        <div class="px-6 py-4 border-b border-outline-variant flex items-center justify-between">
+            <div>
+                <h3 id="bannerModalTitle" class="text-lg font-bold text-on-surface">
+                    Thêm banner
+                </h3>
+                <p class="text-xs text-secondary mt-1">
+                    Ảnh banner sẽ được lưu vào thư mục static/images/banners.
+                </p>
+            </div>
+
+            <button id="btnCloseBannerModal"
+                    class="w-9 h-9 rounded-lg hover:bg-surface-container flex items-center justify-center">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+
+        <form id="bannerForm" class="p-6 space-y-4">
+            <input type="hidden" id="bannerIdInput"/>
+
+            <div>
+                <label class="block text-xs font-semibold text-secondary mb-1">
+                    Tiêu đề banner
+                </label>
+                <input id="bannerTitleInput"
+                       type="text"
+                       class="w-full rounded-lg border-outline-variant text-sm"
+                       placeholder="Ví dụ: Sale hè cực sốc"/>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-secondary mb-1">
+                    Ảnh banner
+                </label>
+                <input id="bannerImageInput"
+                       type="file"
+                       accept="image/jpeg,image/png,image/webp"
+                       class="w-full rounded-lg border border-outline-variant text-sm bg-white file:mr-4 file:border-0 file:bg-primary-container file:px-4 file:py-2 file:text-on-primary file:text-sm file:font-semibold"/>
+                <p id="bannerCurrentImageText" class="text-xs text-secondary mt-1"></p>
+            </div>
+
+            <div id="bannerPreviewWrapper" class="hidden">
+                <p class="text-xs font-semibold text-secondary mb-2">
+                    Xem trước ảnh
+                </p>
+                <img id="bannerPreviewImage"
+                     src=""
+                     alt="Banner preview"
+                     class="w-full h-40 rounded-xl object-cover border border-outline-variant bg-surface-container"/>
+            </div>
+
+            <div class="flex items-center justify-between rounded-xl bg-surface-container px-4 py-3">
+                <div>
+                    <p class="text-sm font-semibold text-on-surface">Hiển thị banner</p>
+                    <p class="text-xs text-secondary">Banner active sẽ được hiển thị ngoài trang chủ.</p>
+                </div>
+
+                <input id="bannerActiveInput"
+                       type="checkbox"
+                       checked
+                       class="rounded border-outline-variant text-primary-container focus:ring-primary-container"/>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-3">
+                <button type="button"
+                        id="btnCancelBanner"
+                        class="px-4 py-2 rounded-lg text-sm font-semibold bg-surface-container text-on-surface hover:opacity-90">
+                    Hủy
+                </button>
+
+                <button type="submit"
+                        class="px-4 py-2 rounded-lg text-sm font-semibold bg-primary-container text-on-primary hover:opacity-90">
+                    Lưu banner
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script type="module" src="/js/admin/pages/promotion-management.js"></script>
 
 </body>
