@@ -5,6 +5,7 @@ import {
 } from "../api/cart-api.js";
 
 import { createOrder } from "../api/order-api.js";
+import { createPayosPayment } from "../api/payment-api.js";
 
 let currentCart = null;
 
@@ -77,7 +78,6 @@ function renderCart(cart) {
     if (!container || !cartTitle) return;
 
     const items = getCartItems(cart);
-
     const totalQuantity = getTotalQuantity(items);
 
     cartTitle.textContent = `Sản phẩm trong giỏ (${totalQuantity})`;
@@ -339,7 +339,7 @@ function renderSummary(totalQuantity, subtotal) {
 }
 
 /* =========================
-   Place order - COD
+   Place order
 ========================= */
 
 function bindPlaceOrderButton() {
@@ -362,9 +362,24 @@ function bindPlaceOrderButton() {
         }
 
         try {
-            setPlaceOrderButtonLoading(true);
+            setPlaceOrderButtonLoading(true, request.paymentMethod);
 
             const order = await createOrder(request);
+
+            if (!order || !order.orderId) {
+                throw new Error("Không nhận được mã đơn hàng từ hệ thống");
+            }
+
+            if (request.paymentMethod === "BANK_TRANSFER") {
+                const payment = await createPayosPayment(order.orderId);
+
+                if (!payment || !payment.checkoutUrl) {
+                    throw new Error("Không nhận được link thanh toán payOS");
+                }
+
+                window.location.href = payment.checkoutUrl;
+                return;
+            }
 
             alert("Đặt hàng thành công");
 
@@ -384,6 +399,9 @@ function bindPlaceOrderButton() {
 }
 
 function buildCreateOrderRequest() {
+    const selectedPayment = document.querySelector('input[name="payment"]:checked');
+    const paymentMethod = selectedPayment?.value || "COD";
+
     return {
         customerName: document.getElementById("customer-name-input")?.value.trim() || "",
         phone: document.getElementById("phone-input")?.value.trim() || "",
@@ -393,7 +411,7 @@ function buildCreateOrderRequest() {
         note: document.getElementById("note-input")?.value.trim() || "",
 
         deliveryMethod: "HOME_DELIVERY",
-        paymentMethod: "COD",
+        paymentMethod: paymentMethod,
 
         voucherCode: null
     };
@@ -420,15 +438,20 @@ function validateCreateOrderRequest(request) {
         return false;
     }
 
-    if (!request.province) {
+    if (!request.province || request.province === "Chọn Tỉnh/Thành phố") {
         alert("Vui lòng chọn tỉnh/thành phố");
+        return false;
+    }
+
+    if (request.paymentMethod === "E_WALLET") {
+        alert("Phương thức ví điện tử chưa được hỗ trợ");
         return false;
     }
 
     return true;
 }
 
-function setPlaceOrderButtonLoading(isLoading) {
+function setPlaceOrderButtonLoading(isLoading, paymentMethod = "COD") {
     const placeOrderBtn = document.getElementById("place-order-btn");
 
     if (!placeOrderBtn) return;
@@ -436,7 +459,11 @@ function setPlaceOrderButtonLoading(isLoading) {
     placeOrderBtn.disabled = isLoading;
 
     if (isLoading) {
-        placeOrderBtn.textContent = "Đang đặt hàng...";
+        placeOrderBtn.textContent =
+            paymentMethod === "BANK_TRANSFER"
+                ? "Đang tạo thanh toán..."
+                : "Đang đặt hàng...";
+
         placeOrderBtn.classList.add("opacity-70", "cursor-not-allowed");
     } else {
         placeOrderBtn.textContent = "Xác nhận đặt hàng";

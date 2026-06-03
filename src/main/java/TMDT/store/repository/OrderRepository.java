@@ -47,5 +47,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     """)
     Optional<Order> findAdminOrderDetailById(@Param("id") Integer id);
 
+    Optional<Order> findByIdAndUser(Integer id, User user);
+
 
 }

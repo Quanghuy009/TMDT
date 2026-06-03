@@ -63,7 +63,8 @@ public class SecurityConfig {
                                 "/api/recommended-products/**",
                                 "/api/best-seller/**",
                                 "/api/best-sellers/**",
-                                "/api/homepage-sections/**"
+                                "/api/homepage-sections/**",
+                                "/api/payments/webhook"
                         ).permitAll()
 
                         // Admin APIs
@@ -81,7 +82,8 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         "/api/cart/**",
                                         "/api/customer/**",
-                                        "/api/orders/**"
+                                        "/api/orders/**",
+                                        "/api/payments/create"
                                 )
                                 .authenticated()
                         // Others

@@ -206,40 +206,46 @@
                 </div>
             </div>
 
-            <!-- Section 3: Payment Method -->
-            <div class="bg-white rounded-xl border border-outline-variant p-6">
-                <h3 class="font-h3 text-body-lg mb-6 flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary-container">payments</span>
-                    Phương thức thanh toán
-                </h3>
-
-                <div class="space-y-3">
-                    <label class="flex items-center p-4 border border-outline-variant rounded-lg cursor-pointer hover:border-primary-container">
-                        <input class="w-5 h-5 text-primary-container focus:ring-primary-container" name="payment" type="radio"/>
-                        <div class="ml-4 flex items-center flex-grow">
-                            <span class="material-symbols-outlined text-secondary mr-2">money</span>
-                            <span class="text-body-md">Thanh toán khi nhận hàng (COD)</span>
-                        </div>
-                    </label>
-
-                    <label class="flex items-center p-4 border border-outline-variant rounded-lg cursor-pointer hover:border-primary-container">
-                        <input checked class="w-5 h-5 text-primary-container focus:ring-primary-container" name="payment" type="radio"/>
-                        <div class="ml-4 flex items-center flex-grow">
-                            <span class="material-symbols-outlined text-primary-container mr-2">credit_card</span>
-                            <span class="text-body-md">Chuyển khoản ngân hàng (QR Code)</span>
-                            <span class="ml-auto bg-green-100 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded">GIẢM 1%</span>
-                        </div>
-                    </label>
-
-                    <label class="flex items-center p-4 border border-outline-variant rounded-lg cursor-pointer hover:border-primary-container">
-                        <input class="w-5 h-5 text-primary-container focus:ring-primary-container" name="payment" type="radio"/>
-                        <div class="ml-4 flex items-center flex-grow">
-                            <span class="material-symbols-outlined text-secondary mr-2">account_balance_wallet</span>
-                            <span class="text-body-md">Ví điện tử (Momo, ZaloPay)</span>
-                        </div>
-                    </label>
+            <label class="flex items-center p-4 border border-outline-variant rounded-lg cursor-pointer hover:border-primary-container">
+                <input
+                        checked
+                        class="w-5 h-5 text-primary-container focus:ring-primary-container"
+                        name="payment"
+                        type="radio"
+                        value="COD"
+                />
+                <div class="ml-4 flex items-center flex-grow">
+                    <span class="material-symbols-outlined text-secondary mr-2">money</span>
+                    <span class="text-body-md">Thanh toán khi nhận hàng (COD)</span>
                 </div>
-            </div>
+            </label>
+
+            <label class="flex items-center p-4 border border-outline-variant rounded-lg cursor-pointer hover:border-primary-container">
+                <input
+                        class="w-5 h-5 text-primary-container focus:ring-primary-container"
+                        name="payment"
+                        type="radio"
+                        value="BANK_TRANSFER"
+                />
+                <div class="ml-4 flex items-center flex-grow">
+                    <span class="material-symbols-outlined text-primary-container mr-2">qr_code</span>
+                    <span class="text-body-md">Thanh toán VietQR / payOS</span>
+                </div>
+            </label>
+
+            <label class="flex items-center p-4 border border-outline-variant rounded-lg cursor-pointer hover:border-primary-container opacity-50 cursor-not-allowed">
+                <input
+                        class="w-5 h-5 text-primary-container focus:ring-primary-container"
+                        name="payment"
+                        type="radio"
+                        value="E_WALLET"
+                        disabled
+                />
+                <div class="ml-4 flex items-center flex-grow">
+                    <span class="material-symbols-outlined text-secondary mr-2">account_balance_wallet</span>
+                    <span class="text-body-md">Ví điện tử (Momo, ZaloPay) - Chưa hỗ trợ</span>
+                </div>
+            </label>
         </div>
 
         <!-- Right Column: Order Summary -->
